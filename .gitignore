@@ -16,3 +16,6 @@ node_modules
 **/.DS_Store
 
 README.md
+
+#the following file should not be uploaded to the git repo
+pnpm-lock.yaml
