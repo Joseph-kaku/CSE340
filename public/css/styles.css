@@ -39,6 +39,10 @@
   float: right;
 } */
 
+.large{
+  display: none;
+}
+
 #owntoday {
   line-height: 0.1;
   padding: 2%;
@@ -48,7 +52,6 @@
 
 #back{
   width: 150px;
-
 }
 
 #owntoday a img {
@@ -98,6 +101,13 @@ body {
   background-image: url(/images/site/checkerboard.jpg);
 }
 
+.small{
+  display: none;
+}
+
+.large{
+  display: flex;
+}
 
 #acheck{
   border: 2px solid rgb(64, 206, 234);
@@ -124,6 +134,17 @@ body {
 }
 
 #side{
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+#ulinks{
+  grid-column: 1;
+  grid-row: 1;
+}
+
+#reviews{
+  grid-column: 2;
 }
 }
