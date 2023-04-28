@@ -36,7 +36,7 @@
 } */
 
 /* #hero img{
-  
+  float: right;
 } */
 
 #owntoday {
@@ -63,28 +63,36 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
- 
 }
 
 #ulinks li {
   width: 50%;
   box-sizing: border-box;
   padding-bottom: 20px;
-  border-style: dashed;
-
 }
 
 #ulinks li a {
   padding-left: 35px;
+ 
 }
 
 #ulinks img {
   display: flex;
-  max-width: 100%;
-  height: auto;
+  /* max-width: 100%;
+  height: auto; */
+  width: 50px;
+  height: 50px;
   margin: 0 auto;
-  
 }
+
+#cbox{
+  margin: 0 auto;
+  background-color: aqua;
+  max-width: 70%;
+  border: 1px solid black;
+  padding: 10%;
+}
+
 
 
 /* body {
