@@ -73,7 +73,6 @@
 
 #ulinks li a {
   padding-left: 35px;
- 
 }
 
 #ulinks img {
@@ -99,11 +98,32 @@ body {
   background-image: url(/images/site/checkerboard.jpg);
 }
 
+
 #acheck{
-  border: 1px solid blue;
+  border: 2px solid rgb(64, 206, 234);
+  background-color: white;
 }
 
 #navi{
   padding: 1%;
+}
+
+#cbox{
+  margin: 0 auto;
+  max-width: 60%;
+  padding: 2%;
+}
+
+#ulinks ul {
+  margin: 0;
+  padding: 0px;
+  list-style: none;
+  display: flex;
+  /* flex-wrap: wrap;
+  align-items: flex-end; */
+}
+
+#side{
+  display: flex;
 }
 }
