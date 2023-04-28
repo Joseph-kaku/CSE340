@@ -94,7 +94,16 @@
 }
 
 
-
-/* body {
+@media screen and (min-width: 1000px){
+body {
   background-image: url(/images/site/checkerboard.jpg);
-} */
+}
+
+#acheck{
+  border: 1px solid blue;
+}
+
+#navi{
+  padding: 1%;
+}
+}
