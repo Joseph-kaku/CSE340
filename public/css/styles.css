@@ -31,13 +31,20 @@
   list-style-type: none;
 }
 
-/* #hero{
- 
-} */
+#hero{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+}
 
-/* #hero img{
-  float: right;
-} */
+#owntoday{
+  grid-column: 1/2;
+  grid-row: 1;
+}
+
+.small{
+  grid-column: 2/4;
+}
 
 .large{
   display: none;
@@ -46,13 +53,12 @@
 #owntoday {
   line-height: 0.1;
   padding: 2%;
-  background-color: rgba(229, 238, 245, 0.3);
+  background-color: rgb(106 141 168 / 13%);
   color: #000000;
-}
-
-#back{
   width: 150px;
 }
+
+
 
 #owntoday a img {
   width: 50%;
@@ -96,7 +102,7 @@
 }
 
 
-@media screen and (min-width: 1000px){
+@media screen and (min-width: 900px){
 body {
   background-image: url(/images/site/checkerboard.jpg);
 }
@@ -111,6 +117,7 @@ body {
 
 #acheck{
   border: 2px solid rgb(64, 206, 234);
+  border-radius: 2%;
   background-color: white;
 }
 
@@ -131,6 +138,10 @@ body {
   display: flex;
   /* flex-wrap: wrap;
   align-items: flex-end; */
+}
+
+#ulinks li a {
+  padding-left: 75px;
 }
 
 #side{
