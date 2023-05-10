@@ -22,3 +22,7 @@ FROM
     public.inventory
 INNER JOIN public.classification
     ON classification.classification_name = inventory.inv_model;
+
+UPDATE public.inventory
+SET inv_image = REPLACE(inv_image,'/images','/images/vehicles'),
+	inv_thumbnail = REPLACE(inv_thumbnail, '/images', '/images/vehicles');
