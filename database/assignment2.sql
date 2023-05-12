@@ -20,7 +20,8 @@ SELECT
 	classification_name
 FROM public.inventory
 INNER JOIN public.classification
-ON classification.classification_name = inventory.inv_model;
+ON classification.classification_id = inventory.classification_id
+WHERE classification.classification_id = 2;
 
 UPDATE public.inventory
 SET inv_image = REPLACE(inv_image,'/images','/images/vehicles'),
