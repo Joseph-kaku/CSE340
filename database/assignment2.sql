@@ -18,10 +18,9 @@ SELECT
     inv_make,
    	inv_model,
 	classification_name
-FROM
-    public.inventory
+FROM public.inventory
 INNER JOIN public.classification
-    ON classification.classification_name = inventory.inv_model;
+ON classification.classification_name = inventory.inv_model;
 
 UPDATE public.inventory
 SET inv_image = REPLACE(inv_image,'/images','/images/vehicles'),
