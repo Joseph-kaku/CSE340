@@ -27,6 +27,8 @@ app.use(require("./routes/static"))
 // Index route
 app.get("/", baseController.buildHome)
 
+// Inventory routes
+app.use("/inv", require("./routes/inventoryRoute"))
 
 /* ***********************
  * Local Server Information
@@ -41,3 +43,5 @@ const host = process.env.HOST
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`)
 })
+
+
