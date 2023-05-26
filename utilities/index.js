@@ -64,12 +64,12 @@ Util.buildInvView = async function(data){
   let div
   if(data.length > 0){ 
     div = '<h1 id="invName">' + data[0].inv_year + ' ' + data[0].inv_make + ' ' + data[0].inv_model  + '</h1>'
-    div += '<div>'+ '<img src="' + data[0].inv_image + '"' + '" alt="Image of '+ data[0].inv_make + ' ' + data[0].inv_model 
+    div += '<div class="car-image">'+ '<img src="' + data[0].inv_image + '"' + '" alt="Image of '+ data[0].inv_make + ' ' + data[0].inv_model 
     +' on CSE Motors" />'
-    div += '<div><h2>' + data[0].inv_make + ' ' + data[0].inv_model + '</h2><p>Price: $' + data[0].inv_price + '</p>'
-    div += '<p id="description">Description: ' + data[0].inv_description + '.</p>'
-    div += '<p id="color">Color: ' + data[0].inv_color + '.</p>'
-    div += '<p id="miles">Miles: ' + data[0].inv_miles + '.</p></div></div>'
+    div += '<div class="describe"><h2>' + data[0].inv_make + ' ' + data[0].inv_model + '</h2><h3>Price: $' + data[0].inv_price + '</h3>'
+    div += '<h3 id="description">Description:</h3> <p>' + data[0].inv_description + '</p>'
+    div += '<h3 id="color">Color:</h3> <p>' + data[0].inv_color + '</p>'
+    div += '<h3 id="miles">Miles:</h3> <p>' + data[0].inv_miles + '</p></div></div>'
   }
   else{
     div += "Sorry, no inventory details could be found."

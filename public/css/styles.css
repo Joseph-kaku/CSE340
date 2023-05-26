@@ -26,7 +26,7 @@
   display:flex;
   justify-content: space-evenly;
   background-color: rgb(32, 31, 31);
-  padding: 5%;
+  padding: 10px;
   list-style-type: none;
 }
 
@@ -112,6 +112,41 @@
   padding: 10%;
 }
 
+/* Styling the grid view. Phone version */
+
+#inv-display{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+
+#inv-display li{
+  border: 1px solid grey;
+  border-radius: 3%;
+  list-style-type: none;
+  max-width: 205px;
+}
+
+#inv-display img{
+  width: 100%; 
+  border-radius: 4%;
+}
+
+.namePrice{
+  text-align: center;
+}
+
+
+/* Styling the single view for the cars. Phone version */
+
+.car-image img{
+  max-width:100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 @media screen and (min-width: 900px){
 body {
@@ -179,5 +214,16 @@ body {
 
 #reviews{
   grid-column: 2;
+}
+/* Styling the single view for the cars. Web & Tablet version */
+.car-image{
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.car-image img{
+  height: 100%;
+  border-radius: 5px;
+  border: 1px solid grey;
 }
 }
