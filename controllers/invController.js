@@ -39,7 +39,7 @@ invCont.buildByInvId = async function(req, res, next){
  * ************************** */
 invCont.throwError  = function (req, res, next){
   try{
-    throw new Error("So sorry try again")
+    throw new Error("Try again, you must")
   } catch(error){
     next(error)
   }
