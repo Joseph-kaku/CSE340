@@ -66,10 +66,10 @@ Util.buildInvView = async function(data){
     div = '<h1 id="invName">' + data[0].inv_year + ' ' + data[0].inv_make + ' ' + data[0].inv_model  + '</h1>'
     div += '<div class="car-image">'+ '<img src="' + data[0].inv_image + '"' + '" alt="Image of '+ data[0].inv_make + ' ' + data[0].inv_model 
     +' on CSE Motors" />'
-    div += '<div class="describe"><h2>' + data[0].inv_make + ' ' + data[0].inv_model + '</h2><h3>Price: $' + data[0].inv_price + '</h3>'
+    div += '<div class="describe"><h2>' + data[0].inv_make + ' ' + data[0].inv_model + '</h2><h3>Price: $' + new Intl.NumberFormat('en-US').format(data[0].inv_price) + '</h3>'
     div += '<h3 id="description">Description:</h3> <p>' + data[0].inv_description + '</p>'
     div += '<h3 id="color">Color:</h3> <p>' + data[0].inv_color + '</p>'
-    div += '<h3 id="miles">Miles:</h3> <p>' + data[0].inv_miles + '</p></div></div>'
+    div += '<h3 id="miles">Miles:</h3> <p>' + new Intl.NumberFormat('en-US').format(data[0].inv_miles) + '</p></div></div>'
   }
   else{
     div += "Sorry, no inventory details could be found."
