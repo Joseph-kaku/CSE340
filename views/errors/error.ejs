@@ -1,6 +1,8 @@
 <!-- Content Heading -->
-<%- include('../partials/head') %>
+<% if (title) { %>
+    <h1> <%= title %> </h1>
+    <% } else {
+      res.redirect('/')
+    } %>
 
-<p>
-    I'm sorry, try again
-</p>
+<h1><%- message %></h1>
