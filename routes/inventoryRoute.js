@@ -9,6 +9,7 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 
 // Route to build view for one car
 router.get("/detail/:invId", utilities.handleErrors(invController.buildByInvId));
+// router.ger("/detail/:invId", invController.buildByInvId)
 
 // Error link
 router.get("/throwError", utilities.handleErrors(invController.throwError)); 
