@@ -1,0 +1,32 @@
+<%- include('../partials/head') %>
+
+<!-- Content Heading -->
+<% if (title) { %>
+    <h1> <%= Login %> </h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<%- messages() %>
+
+<div id="wrapper">
+    <%- include('../partials/header') %>
+    <%- include('../partials/navigation') %>
+
+   <form action="/controllers/accountController.js">
+    <label for="email">Email: </label><br>
+    <input name="account_email" type="text"><br>
+    <label for="password">Password: </label><br>
+    <input name="account_password" type="text"><br>
+    <input type="submit" value="Submit">
+   </form>
+<p> 
+    No account? 
+    <a href="#">Sign Up</a>
+</p>
+
+    <%- include('../partials/footer') %>
+</div> 
+
+</body>
+

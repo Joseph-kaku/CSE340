@@ -2,8 +2,10 @@
 const express = require("express")
 const router = new express.Router() 
 // const invController = require("../controllers/invController")
-const invController = require("../controllers/accController")
+const accountController = require("../controllers/accountController")
 const utilities = require("../utilities/")
 
 // Route to build account view
-router.get("/account/:login", utilities.handleErrors(accController.buildAccountView))
+router.get("/account/:login", utilities.handleErrors(accountController.buildAccountView))
+
+module.exports = router;
