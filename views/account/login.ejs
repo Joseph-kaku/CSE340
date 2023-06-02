@@ -5,6 +5,7 @@
       res.redirect('/')
     } %>
 
+<!-- flash messages if any will be displaced as a result of the following line of code -->
 <%- messages() %>
 
     
@@ -14,7 +15,11 @@
         <input name="account_email" id="email" type="text" required><br>
         <label for="password">Password: </label><br>
         <input name="account_password" id="password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{12,}" required><br>
-        <input type="submit" value="Submit">
+        <input type="submit" class="login" value="Login">
+        <p> 
+            No account?
+            <a href="/account/registration">Sign Up</a>
+        </p>
         <p class ="pswdrequirements">
             Password Requirements: 
             Must contain at least one number 
@@ -22,12 +27,8 @@
             and at least 12 or more characters 
         </p>
     </fieldset>
-
 </form>
         
-<p> 
-    No account? 
-    <a href="#">Sign Up</a>
-</p>
+
 
 
