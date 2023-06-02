@@ -1,32 +1,33 @@
-<%- include('../partials/head') %>
-
 <!-- Content Heading -->
 <% if (title) { %>
-    <h1> <%= Login %> </h1>
+    <h1> <%= title %> </h1>
     <% } else {
       res.redirect('/')
     } %>
 
 <%- messages() %>
 
-<div id="wrapper">
-    <%- include('../partials/header') %>
-    <%- include('../partials/navigation') %>
+    
+<form action="/controllers/accountController.js">
+    <fieldset>
+        <label for="email">Email: </label><br>
+        <input name="account_email" id="email" type="text" required><br>
+        <label for="password">Password: </label><br>
+        <input name="account_password" id="password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{12,}" required><br>
+        <input type="submit" value="Submit">
+        <p class ="pswdrequirements">
+            Password Requirements: 
+            Must contain at least one number 
+            and one uppercase and lowercase letter, 
+            and at least 12 or more characters 
+        </p>
+    </fieldset>
 
-   <form action="/controllers/accountController.js">
-    <label for="email">Email: </label><br>
-    <input name="account_email" type="text"><br>
-    <label for="password">Password: </label><br>
-    <input name="account_password" type="text"><br>
-    <input type="submit" value="Submit">
-   </form>
+</form>
+        
 <p> 
     No account? 
     <a href="#">Sign Up</a>
 </p>
 
-    <%- include('../partials/footer') %>
-</div> 
-
-</body>
 

@@ -147,6 +147,28 @@
   justify-content: center;
 }
 
+/* Account Login */
+form {
+  /* border: 1px solid black; */
+  padding: 4%;
+  display: flex;
+  justify-content: center;
+  line-height: 1.4em;
+  /* max-width: 100%; */
+}
+
+fieldset{
+  padding:1%;
+  width: 260px;
+}
+
+fieldset p{
+  display: flex;
+  justify-content: center;
+}
+
+
+
 
 @media screen and (min-width: 900px){
 body {
