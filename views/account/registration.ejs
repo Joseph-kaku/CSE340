@@ -8,6 +8,16 @@
 <!-- flash messages if any will be displaced as a result of the following line of code -->
 <%- messages() %>
 
+<!-- Code block to handle errors -->
+
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
 <!-- The form build -->
 <form action="/account/register" method="post">
     <fieldset id="fsetr">
