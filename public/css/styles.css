@@ -199,6 +199,12 @@ fieldset a{
   background-color: aliceblue;
 }
 
+input:required:invalid, input:focus:invalid {
+  border: 1px solid red;
+ }
+  input:required:valid {
+    border: 1px solid green;
+  }
 
 
 
