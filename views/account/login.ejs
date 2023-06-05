@@ -8,6 +8,15 @@
 <!-- flash messages if any will be displaced as a result of the following line of code -->
 <%- messages() %>
 
+<!-- Code block to handle errors -->
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
     
 <form id="loginForm" action="/account/login" method="post">
     <fieldset>
@@ -16,10 +25,7 @@
         <label for="password">Password: </label><br>
         <input name="account_password" id="password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required><br>
         <input type="submit" class="login" value="Login">
-        <p> 
-            No account?
-            <a href="/account/registration">Sign Up</a>
-        </p>
+        <p>No account? <a href="/account/registration">Sign Up</a></p>
         <p class ="pswdrequirements">
             Password Requirements: 
             Passwords must be at least 12 characters 
