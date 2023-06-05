@@ -57,13 +57,13 @@ validate.loginRules = () => {
     .trim()
     .isEmail()
     .normalizeEmail() // refer to validator.js docs
-    .withMessage("A valid email is required.")
-    .custom(async (account_email) => {
-      const emailExists = await accountModel.checkExistingEmail(account_email)
-      if (emailExists) {
-        throw new Error("Email exists. Please log in or use different email")
-      }
-    }),
+    .withMessage("A valid email is required."),
+    // .custom(async (account_email) => {
+    //   const emailExists = await accountModel.checkExistingEmail(account_email)
+    //   if (emailExists) {
+    //     throw new Error("Email exists. Please log in or use different email")
+    //   }
+    // })
 
           // password is required and must be strong password
           body("account_password")
@@ -105,7 +105,7 @@ validate.checkRegData = async (req, res, next) => {
  * Check data and return errors or continue to login
  * ***************************** */
   validate.checkLogData = async (req, res, next) => {
-    const {account_email} = req.body
+    const {account_email, account_password} = req.body
     let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -115,7 +115,7 @@ validate.checkRegData = async (req, res, next) => {
         title: "Login",
         nav,
         account_email,
-        // account_password,
+        account_password,
       })
       return
     }
