@@ -45,4 +45,57 @@ invCont.throwError  = function (req, res, next){
   }
 }
 
+/* ***************************
+ *  Build view for car management
+ * ************************** */
+invCont.buildManager = async function (req,res,next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/management", {
+    title: "Vehicle Management",
+    nav,
+    errors: null,
+  })
+}
+
+/* ***************************
+ *  Build view for adding classification
+ * ************************** */
+invCont.buildNewClassification = async function (req,res,next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/addClassification", {
+    title: "New Classification",
+    nav,
+    errors: null,
+  })
+}
+
+/* ****************************************
+*  Process New Classification
+* *************************************** */
+invCont.newClassification = async function(req,res){
+  let nav = await utilities.getNav()
+  const {classification_name} = req.body
+
+  const regResult = await invModel.newClassification(
+    classification_name
+  )
+
+  if (regResult) {
+    req.flash(
+      "notice",
+      `Congratulations, you\'ve added ${classification_name} as a new Classification`
+    )
+    res.status(201).render("inventory/addClassification", {
+      title: "Vehicle Management",
+      nav,
+    })
+  } else {
+    req.flash("notice", "Sorry, that did not work.")
+    res.status(501).render("inventory/addClassification", {
+      title: "New Classification",
+      nav,
+    })
+  }
+}
+
 module.exports = invCont
