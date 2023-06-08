@@ -2,12 +2,13 @@
 <% if (title) { %>
     <h1> <%= title %> </h1>
     <form action="/inv/addClassification" method="post">
+        <fieldset>
         <label for="classification_name">
             Classification Name: <br>
-            <input type="text" name="classification_name" id=""> <br>
+            <input type="text" name="classification_name" id="" required> <br>
             <input type="submit" value="Add Classification">
         </label>
-        
+        </fieldset> 
     </form>
     <% } else {
       res.redirect('/')
