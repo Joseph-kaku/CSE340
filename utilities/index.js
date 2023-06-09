@@ -77,6 +77,13 @@ Util.buildInvView = async function(data){
   return div
 }
 
+/* ************************
+ * Constructs the drop down menu
+ ************************** */
+Util.getClass = async function (req, res, next) {
+
+}
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 

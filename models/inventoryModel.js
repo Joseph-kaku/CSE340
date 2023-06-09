@@ -6,7 +6,12 @@ const pool = require("../database/")
 async function getClassifications(){
   return await pool.query("SELECT * FROM public.classification ORDER BY classification_name")
 }
-
+// /* ***************************
+//  *  Get all classification ID's for the drop down
+//  * ************************** */
+// async function getClassId(){
+//   return await pool.query("SELECT * FROM public.classification ORDER BY classification_id")
+// }
 /* ***************************
  *  Get all inventory items and classification_name by classification_id
  * ************************** */
