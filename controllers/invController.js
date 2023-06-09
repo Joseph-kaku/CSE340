@@ -73,7 +73,6 @@ invCont.buildNewClassification = async function (req,res,next) {
 *  Process New Classification
 * *************************************** */
 invCont.newClassification = async function(req,res){
-  let nav = await utilities.getNav()
   const {classification_name} = req.body
 
   const regResult = await invModel.newClassification(
@@ -81,6 +80,7 @@ invCont.newClassification = async function(req,res){
   )
 
   if (regResult) {
+    let nav = await utilities.getNav()
     req.flash(
       "notice",
       `Congratulations, you\'ve added ${classification_name} as a new Classification`
@@ -88,9 +88,12 @@ invCont.newClassification = async function(req,res){
     res.status(201).render("inventory/addClassification", {
       title: "Vehicle Management",
       nav,
+      errors:null,
     })
   } else {
-    req.flash("notice", "Sorry, that did not work.")
+    req.flash("notice", 
+    "Sorry, that did not work."
+    )
     res.status(501).render("inventory/addClassification", {
       title: "New Classification",
       nav,

@@ -45,4 +45,16 @@ async function newClassification (classification_name){
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getBuildByCarView, newClassification}
+//Check for existing classification
+async function checkExistingClassification(classification_name) {
+  try {
+    const sql = "SELECT * FROM classification WHERE classification_name = $1"
+    const className = await pool.query(sql,
+      [classification_name])
+      return className.rowCount
+  } catch (error) {
+    return error.message
+  }
+}
+
+module.exports = {getClassifications, getInventoryByClassificationId, getBuildByCarView, newClassification, checkExistingClassification}

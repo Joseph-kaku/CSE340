@@ -1,15 +1,28 @@
 <!-- Content Heading -->
 <% if (title) { %>
     <h1> <%= title %> </h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<!-- Code block to handle errors -->
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
+ <!-- flash messages if any will be displaced as a result of the following line of code -->
+<%- messages() %>
+  
     <form action="/inv/addClassification" method="post">
         <fieldset>
         <label for="classification_name">
             Classification Name: <br>
-            <input type="text" name="classification_name" id="" required> <br>
+            <input type="text" name="classification_name" id="" pattern="[a-zA-Z]+" required> <br>
             <input type="submit" value="Add Classification">
         </label>
         </fieldset> 
     </form>
-    <% } else {
-      res.redirect('/')
-    } %>

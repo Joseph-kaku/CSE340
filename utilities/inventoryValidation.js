@@ -13,6 +13,12 @@ validate.addClassRules = () => {
         .trim()
         .isLength({ min: 3 })
         .withMessage("Please provide a classification name")
+        .custom(async (classification_name) => {
+           const classNameExists = await inventoryModel.checkExistingClassification(classification_name)
+           if (classNameExists) {
+            throw new Error("Classification name exists. Add a different one")
+           }
+        })
     ]
 }
 
@@ -25,7 +31,7 @@ validate.checkClassificationData = async (req, res, next) => {
     errors = validationResult(req)
     if (!errors.isEmpty()) {
         let nav = await utilities.getNav()
-        res.render("inventory/management", {
+        res.render("inventory/addClassification", {
             errors,
             title: "Vehicle Management",
             nav,
