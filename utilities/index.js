@@ -81,7 +81,8 @@ Util.buildInvView = async function(data){
  * Constructs the drop down menu
  ************************** */
 Util.getClass = async function (req, res, next) {
-
+  let data = await invModel.getClassifications()
+  let list = '<section id="dropdown" >'
 }
 
 /* ****************************************
