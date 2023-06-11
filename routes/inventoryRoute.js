@@ -27,4 +27,13 @@ regValidate.addClassRules(),
 regValidate.checkClassificationData,
 utilities.handleErrors(invController.newClassification))
 
+// inventory link
+router.get("/addInventory", utilities.handleErrors(invController.buildnewVehicle)) 
+
+// add new inventory item link
+router.post("/addInventory", 
+regValidate.checkInventoryInput(),
+regValidate.checkInventoryData,
+utilities.handleErrors(invController.newInventoryItem))
+
 module.exports = router;

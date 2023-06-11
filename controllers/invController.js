@@ -69,6 +69,21 @@ invCont.buildNewClassification = async function (req,res,next) {
   })
 }
 
+/* ***************************
+ *  Build view for adding new vehicle
+ * ************************** */
+invCont.buildnewVehicle = async function(req,res,next) {
+  let nav = await utilities.getNav()
+  const table = await invModel.getClassifications()
+  let dropmenu = await utilities.getClass(table)
+  res.render("./inventory/addInventory", {
+    title: "Add Vehicle",
+    nav,
+    dropmenu,
+    errors: null,
+  })
+}
+
 /* ****************************************
 *  Process New Classification
 * *************************************** */
@@ -97,6 +112,46 @@ invCont.newClassification = async function(req,res){
     res.status(501).render("inventory/addClassification", {
       title: "New Classification",
       nav,
+    })
+  }
+}
+
+
+
+/* ****************************************
+*  Process New Inventory Item (Vehicle)
+* *************************************** */
+invCont.newInventoryItem = async function(req, res) {
+  const {
+     inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color, classification_id} = req.body
+    
+    
+    const regResult = await invModel.newVehicleAdded(
+      inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color, classification_id)
+    if (regResult) {
+      let nav = await utilities.getNav()
+      let data = await invModel.getClassifications()
+      let dropmenu = await utilities.getClass(data)
+    req.flash(
+      "success",
+      `Congratulations, you have added a ${inv_year} ${inv_make} ${inv_model} to the inventory!`
+    )
+    res.status(201).render("inventory/addInventory", {
+      title: "Add Vehicle",
+      nav,
+      errors: null,
+      dropmenu
+    })
+  } else {
+    req.flash (
+      "error",
+      "Sorry, try again. That didn't work"
+    )
+    res.status(501).render("inventory/addInventory", {
+      title: "Add Vehicle",
+      nav,
+      errors,
+      dropmenu
     })
   }
 }
