@@ -63,7 +63,7 @@ validate.checkInventoryInput = () => {
         // Description is required and must be string
         body("inv_description")
         .trim()
-        .isAlpha()
+        .isLength({min:3})
         .withMessage("Please provide a description"),
 
         // price is required and must be numbers
