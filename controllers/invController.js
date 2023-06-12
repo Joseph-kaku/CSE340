@@ -97,7 +97,7 @@ invCont.newClassification = async function(req,res){
   if (regResult) {
     let nav = await utilities.getNav()
     req.flash(
-      "notice",
+      "success",
       `Congratulations, you\'ve added ${classification_name} as a new Classification`
     )
     res.status(201).render("inventory/addClassification", {
@@ -106,7 +106,7 @@ invCont.newClassification = async function(req,res){
       errors:null,
     })
   } else {
-    req.flash("notice", 
+    req.flash("error", 
     "Sorry, that did not work."
     )
     res.status(501).render("inventory/addClassification", {
