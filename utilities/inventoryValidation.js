@@ -70,7 +70,7 @@ validate.checkInventoryInput = () => {
         body("inv_price")
         .trim()
         .isNumeric()
-        .withMessage("Please provide a valid number"),
+        .withMessage("Please provide a valid price"),
 
         // year is required and must be numbers
         body("inv_year")
@@ -82,8 +82,13 @@ validate.checkInventoryInput = () => {
         body("inv_miles")
         .trim()
         .isNumeric()
-        .withMessage("Please provide a valid numerical value")
+        .withMessage("Please provide a valid numerical value for miles"),
 
+        // color should only be aplabets
+        body("inv_color")
+        .trim()
+        .isAlpha()
+        .withMessage("Please provide a valid color name")
     ]
 }
 
@@ -91,7 +96,7 @@ validate.checkInventoryInput = () => {
  * Check data and return errors or continue to management
  * ***************************** */
     validate.checkInventoryData = async (req, res, next) => {
-        const {inv_make, inv_model, inv_description, inv_price, inv_year, inv_miles} = req.body
+        const {inv_make, inv_model, inv_description, inv_price, inv_year, inv_miles, inv_color} = req.body
         let errors = []
         errors = validationResult(req)
         if (!errors.isEmpty()) {
@@ -108,7 +113,8 @@ validate.checkInventoryInput = () => {
                 inv_description,
                 inv_price,
                 inv_year,
-                inv_miles
+                inv_miles,
+                inv_color
             })
             return
         }
