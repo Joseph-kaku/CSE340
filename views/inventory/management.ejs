@@ -3,6 +3,11 @@
     <h1> <%= title %> </h1>
     <p><a href="/inv/addClassification">Add New Classification</a></p>
     <p><a href="/inv/addInventory">Add New Vehicle</a></p>
+    <h2>Manage Inventory</h2>
+    <p>Select an item from the list to view it's inventory items</p>
+    <%- dropmenu %>
+    <table id="inventoryDisplay"></table>
+    <noscript>JavaScript must be enabled to use this page.</noscript>
     <% } else {
       res.redirect('/')
     } %>
@@ -11,6 +16,8 @@
 
 <!-- flash messages if any will be displaced as a result of the following line of code -->
 <%- messages() %>
-<%- dropmenu %>
+
+
+<script src="../../js/inventory.js"></script>
 
 
