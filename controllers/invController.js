@@ -50,10 +50,13 @@ invCont.throwError  = function (req, res, next){
  * ************************** */
 invCont.buildManager = async function (req,res,next) {
   let nav = await utilities.getNav()
+  const table = await invModel.getClassifications()
+  let dropmenu = await utilities.getClass(table)
   res.render("./inventory/management", {
     title: "Vehicle Management",
     nav,
     errors: null,
+    dropmenu,
   })
 }
 
