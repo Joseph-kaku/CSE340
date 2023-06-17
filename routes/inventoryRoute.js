@@ -39,4 +39,16 @@ utilities.handleErrors(invController.newInventoryItem))
 // URL JavaScript link
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
+// Link for the edit view
+router.get("/edit/:inv_id", utilities.handleErrors(invController.buildEditView))
+
+// editInventory route
+router.post("/update/", invController.updateInventory)
+
+// Link for the delete view
+router.get("/delete/:inv_id", utilities.handleErrors(invController.buildDeleteView))
+
+// deleteInventory route
+router.post("/delete/", invController.deleteInventory)
+
 module.exports = router;

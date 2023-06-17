@@ -20,12 +20,12 @@
 
 
  
-  <form action="/inv/addInventory" method="post">
+  <form id="updateForm" action="/inv/update" method="post">
     <fieldset>
       <p>ALL FIELDS ARE REQUIRED</p>
         <label for="classificationId" id="classificationId">Classification </label><br>
         <!-- Dropmenu brought in -->
-        <%- dropmenu %> <br>
+        <%- classificationSelect %> <br>
         <label for="invMake" >Make <br>
             <input name="inv_make" id="invMake" type="text" placeholder="Min of 3 characters" value="<%= locals.inv_make %>" required>
         </label><br>
@@ -53,7 +53,9 @@
         <label for="invColor" >Color <br>
           <input name="inv_color" id="invColor" type="text" value="<%= locals.inv_color %>" required>
         </label><br>
-        <input type="submit" value="Add New Vehicle" id="addButtton">
+        <input type="submit" name="submit" value="Update Vehicle" id="addButton" disabled>
+        <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%= locals.inv_id %>" <% } %> >
     </fieldset>
   </form>
 
+<script src="../../js/invUpdate.js"></script>
