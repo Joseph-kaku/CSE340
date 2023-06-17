@@ -36,4 +36,7 @@ regValidate.checkInventoryInput(),
 regValidate.checkInventoryData,
 utilities.handleErrors(invController.newInventoryItem))
 
+// URL JavaScript link
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
 module.exports = router;
