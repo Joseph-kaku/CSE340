@@ -61,6 +61,12 @@ app.use(require("./routes/static"))
 // Index route
 app.get("/",utilities.handleErrors(baseController.buildHome))
 
+// route to delete cookie for logout function
+app.get('/clearCookie', (req, res) => {
+  res.clearCookie('jwt');
+  res.redirect('/')
+});
+
 // Inventory routes
 app.use("/inv", require("./routes/inventoryRoute"))
 
