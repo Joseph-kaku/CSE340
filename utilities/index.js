@@ -82,14 +82,29 @@ Util.buildInvView = async function(data){
 /* ************************
  * Constructs the drop down menu
  ************************** */
-Util.getClass = async function(data) {
-let dropmenu = '<select id="classificationList" name="classification_id" required>'
-dropmenu += '<option value=""> Select A Classification </option>'
-data.rows.forEach((row) => {
-  dropmenu += `<option value="${row.classification_id}">${row.classification_name}</option>`
-})
-dropmenu += "</select>"
-return dropmenu
+// Util.getClass = async function(data) {
+// let dropmenu = '<select id="classificationList" name="classification_id" required>'
+// dropmenu += '<option value=""> Select A Classification </option>'
+// data.rows.forEach((row) => {
+//   dropmenu += `<option value="${row.classification_id}">${row.classification_name}</option>`
+// })
+// dropmenu += "</select>"
+// return dropmenu
+// }
+
+Util.getClass = async function(optionSelected){
+  let data = await invModel.getClassifications()
+  let select = "<select name='classification_id' id='classificationList'>"
+  let options = "<option value=''>Choose a Classification</option>"
+  data.rows.forEach((row) => {
+    options += `
+    <option
+      value = "${row.classification_id}"
+      ${row.classification_id === Number(optionSelected)? 'selected':''} > ${row.classification_name} </option>`
+  })
+  select += options
+  select += "</select>"
+  return select
 }
 
 /* ****************************************

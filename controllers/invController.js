@@ -133,8 +133,8 @@ invCont.newInventoryItem = async function(req, res) {
       inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color, classification_id)
     if (regResult) {
       let nav = await utilities.getNav()
-      let data = await invModel.getClassifications()
-      let dropmenu = await utilities.getClass(data)
+      let data = await invModel.getBuildByCarView()
+      let dropmenu = await utilities.getClass(data.rows)
     req.flash(
       "success",
       `Congratulations, you have added a ${inv_year} ${inv_make} ${inv_model} to the inventory!`
@@ -180,8 +180,7 @@ invCont.buildEditView = async function (req, res, next) {
   let nav = await utilities.getNav()
   const itemData = await invModel.getBuildByCarView(inv_id)
   const table = await invModel.getClassifications()
-  console.log(itemData)
-  let classificationSelect = await utilities.getClass(table)
+  let classificationSelect = await utilities.getClass(itemData[0].classification_id)
   // const classificationSelect = await utilities.getClass(itemData.classification_id)
   const itemName = `${itemData[0].inv_make} ${itemData[0].inv_model}`
   res.render("./inventory/editInventory", {

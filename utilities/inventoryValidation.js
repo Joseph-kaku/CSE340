@@ -48,6 +48,13 @@ validate.checkClassificationData = async (req, res, next) => {
  * ********************************* */
 validate.checkInventoryInput = () => {
     return [
+        // Classification Id is required and must be chose
+        body("classification_id")
+        .trim()
+        .isNumeric()
+        .withMessage("Select a classification"),
+
+
         // Make is required and must be a string
         body("inv_make")
         .trim()
@@ -96,7 +103,7 @@ validate.checkInventoryInput = () => {
  * Check data and return errors or continue to management
  * ***************************** */
     validate.checkInventoryData = async (req, res, next) => {
-        const {inv_make, inv_model, inv_description, inv_price, inv_year, inv_miles, inv_color} = req.body
+        const {classification_id, inv_make, inv_model, inv_description, inv_price, inv_year, inv_miles, inv_color} = req.body
         let errors = []
         errors = validationResult(req)
         if (!errors.isEmpty()) {
@@ -108,6 +115,7 @@ validate.checkInventoryInput = () => {
                 title: "Add Vehicle",
                 dropmenu,
                 nav,
+                classification_id,
                 inv_make,
                 inv_model,
                 inv_description,
