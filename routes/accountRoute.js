@@ -41,7 +41,9 @@ regValidate.updateInfoRules(),
 regValidate.updatePasswordRules(),
 regValidate.checkUpdateInfo,
 regValidate.checkUpdatePassword,
-utilities.handleErrors(accountController))
+utilities.handleErrors(accountController.updateInfo))
 
+// Process the update password attempt
+router.post("/updateView", utilities.handleErrors(accountController.updateInfoPassword))
 
 module.exports = router;

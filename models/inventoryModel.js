@@ -103,7 +103,7 @@ async function updateInventory(
   }
 }
 
-// Update inventory item (vehicle) in the DB
+// Delete inventory item (vehicle) in the DB
 async function deleteInventory(
   inv_id
 ) {

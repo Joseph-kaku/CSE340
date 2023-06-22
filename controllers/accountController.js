@@ -137,4 +137,48 @@ async function buildUpdateView (req, res) {
   })
 }
 
-module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView}
+ /* ****************************************
+ *  Process update information & password
+ * ************************************ */
+async function updateInfo (req, res){
+  const {account_firstname, account_lastname, account_email} = req.body
+
+  const result = await accountModel.updateInfo(account_firstname, account_lastname, account_email)
+  if (result) {
+    const updateItem = result.account_firstname + " " + result.account_lastname
+    req.flash("success", `Account ${updateItem} was succesfully updated`)
+    res.redirect("/login")
+  } else {
+    let nav = await utilities.getNav()
+    const noUpdate = `${account_firstname} ${account_lastname}`
+    req.flash("error", `Sorry the update for ${account_firstname} failed`)
+    res.status(501).render("account/updateView", {
+      title: "Edit " + noUpdate,
+      nav,
+      errors: null,
+      account_firstname,
+      account_lastname, 
+      account_email
+    })
+  }
+}
+
+async function updateInfoPassword (req, res) {
+  const {account_password} =req.body
+
+  const result = await accountModel.updateInfoPassword( account_password)
+  if (result) {
+    const passUpdate = result.account_password
+    req.flash("success", `The ${passUpdate} was successfully updated, hope you remember what you used`)
+    res.redirect("/login")
+  } else {
+    const noPassUpdate = `${account_password}`
+    req.flash("error", "Sorry your password was not updated")
+    res.status(501).render("account/updateView",{
+      title: "Edit " + noPassUpdate,
+      account_password
+    })
+  }
+}
+
+module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView, updateInfo, updateInfoPassword}
