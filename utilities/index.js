@@ -148,5 +148,24 @@ Util.checkJWTToken = (req, res, next) => {
     return res.redirect("/account/login")
   }
  }
- 
+
+ /* ****************************************
+ *  Check Account Type for logged in users
+ * ************************************ */
+ Util.checkAccount = (req, res, next) => {
+  // this redirects you to the login page if you try to access the inventory management without loggin in
+  if (res.locals.loggedin != 1){
+    req.flash("error", "You do not have permission to access this page. :O")
+    res.status(403).redirect("/account/login")
+  }
+  // receive the account type from the payload
+  const account_type = res.locals.accountData.account_type
+  // verify if the account is an employee or an admin
+  if (account_type === 'Employee' || account_type === 'Admin') {
+    next() // move to the next thing
+  } else {
+    req.flash("error", "You do not have permission to access this page. :O")
+    res.status(403).redirect("/account/login")
+  }
+ }
 module.exports = Util

@@ -16,10 +16,13 @@ router.get("/detail/:invId", utilities.handleErrors(invController.buildByInvId))
 router.get("/throwError", utilities.handleErrors(invController.throwError)); 
 
 //management link
-router.get("/", utilities.handleErrors(invController.buildManager))
+router.get("/", 
+utilities.checkAccount,
+utilities.handleErrors(invController.buildManager))
 
 //Classification link
-router.get("/addClassification", utilities.handleErrors(invController.buildNewClassification))
+router.get("/addClassification",
+utilities.handleErrors(invController.buildNewClassification))
 
 //Add new classification
 router.post("/addClassification", 
@@ -50,5 +53,6 @@ router.get("/delete/:inv_id", utilities.handleErrors(invController.buildDeleteVi
 
 // deleteInventory route
 router.post("/delete/", invController.deleteInventory)
+
 
 module.exports = router;

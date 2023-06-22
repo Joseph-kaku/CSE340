@@ -1,0 +1,51 @@
+<!-- Content Heading -->
+<% if (title) { %>
+    <h1> <%= title %> </h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<!-- flash messages if any will be displaced as a result of the following line of code -->
+<%- messages() %>
+
+<!-- Code block to handle errors -->
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
+  <!-- Form to update First name, last name and email address -->
+  <h2>Account Update</h2>
+  <form action="/account/updateView" method="post">
+    <fieldset>
+        <label for="firstname">First Name</label><br>
+        <input type="text" class="fname" name="account_firstname" size="15" required value="<%= locals.accountData.account_firstname %>"><br>
+        <label for="lastname"> Last name</label><br>
+        <input type="text" class="lname" name="account_lastname" size="15" required value="<%= locals.accountData.account_lastname %>"><br>
+        <label for="email">Email: </label> <br>
+        <input name="account_email" id="email" type="text" required placeholder="Enter a valid email address" required value="<%= locals.accountData.account_email %>"> <br>
+        <input type="submit" value="Update">
+        <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%= locals.inv_id %>" <% } %> >
+    </fieldset>
+  </form>
+
+  <h2>Update Password</h2>
+
+  <p>
+    Passwords must be 12 characters and contain at least 1 number, 1 capital letter and 1 special character. 
+    *note your original password will be changed
+  </p>
+
+  <form action="/account/updateView" method="post">
+    <fieldset>
+        <label for="password">Password: </label> <br>
+        <input name="account_password" id="password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required><br>
+        <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
+        <input type="submit" value="Update Password">
+    </fieldset>
+  </form>
+
+  

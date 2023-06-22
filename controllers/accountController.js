@@ -119,4 +119,22 @@ async function accountLogin(req, res) {
   })
 }
 
-module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement}
+ /* ****************************************
+ *  Deliver update information view
+ * ************************************ */
+async function buildUpdateView (req, res) {
+  let nav = await utilities.getNav()
+  const accountId = parseInt(req.params.account_id)
+  const accountData = await accountModel.getAccountByAccountId(accountId)
+  res.render("account/updateView", {
+    title: "Edit Account",
+    nav,
+    errors: null,
+    account_id: accountId,
+    account_firstname: accountData.account_firstname,
+    account_lastname: accountData.account_lastname,
+    account_email: accountData.account_email,
+  })
+}
+
+module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView}
