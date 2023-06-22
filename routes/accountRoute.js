@@ -38,12 +38,14 @@ utilities.handleErrors(accountController.buildUpdateView))
 // Process the update attempt
 router.post("/updateView",
 regValidate.updateInfoRules(),
-regValidate.updatePasswordRules(),
 regValidate.checkUpdateInfo,
-regValidate.checkUpdatePassword,
 utilities.handleErrors(accountController.updateInfo))
 
 // Process the update password attempt
-router.post("/updateView", utilities.handleErrors(accountController.updateInfoPassword))
+router.post("/updateView", 
+regValidate.updatePasswordRules(),
+regValidate.checkUpdatePassword,
+utilities.
+handleErrors(accountController.updateInfoPassword))
 
 module.exports = router;

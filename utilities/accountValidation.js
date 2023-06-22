@@ -129,13 +129,21 @@ validate.updateInfoRules = () => {
   return [
     body("account_firstname")
     .trim()
-    .isLength({ min: 1 })
-    .withMessage("Please provide a first name."),
+    .custom(async (account_firstname) => {
+      const firstNameExists = await accountModel.checkExistingFirstName(account_firstname)
+      if (firstNameExists) {
+        throw new Error("First name hasn't changed. Update First Name")
+      }
+    }) ,
 
     body("account_lastname")
     .trim()
-    .isLength({ min: 2 })
-    .withMessage("Please provide a last name."),
+    .custom(async (account_lastname) => {
+      const firstNameExists = await accountModel.checkExistingLastName(account_lastname)
+      if (firstNameExists) {
+        throw new Error("Last name hasn't changed. Update Last Name")
+      }
+    }),
 
     body("account_email")
     .trim()
@@ -145,7 +153,7 @@ validate.updateInfoRules = () => {
     .custom(async (account_email) => {
       const emailExists = await accountModel.checkExistingEmail(account_email)
       if (emailExists) {
-        throw new Error("Email exists. Please log in or use different email")
+        throw new Error("Email hasn't changed. Please update the email")
       }
     }),
   ]
@@ -175,7 +183,7 @@ validate.updatePasswordRules = () => {
  * Check update information and return errors or continue to registration
  * ***************************** */
 validate.checkUpdateInfo = async (req, res, next) => {
-  const {account_firstname, account_lastname, account_email, account_password} = req.body
+  const {account_firstname, account_lastname, account_email} = req.body
   let errors = []
   errors = validationResult(req)
   if (!errors.isEmpty()) {
@@ -187,7 +195,6 @@ validate.checkUpdateInfo = async (req, res, next) => {
       account_firstname,
       account_lastname,
       account_email,
-      account_password,
     })
     return
   }

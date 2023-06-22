@@ -26,6 +26,32 @@ async function checkExistingEmail(account_email){
   }
 }
 
+/* **********************
+ *   Check for existing first name
+ * ********************* */
+async function checkExistingFirstName(account_firstname){
+  try {
+    const sql = "SELECT * FROM account WHERE account_firstname = $1"
+    const fname = await pool.query(sql, [account_firstname])
+    return fname.rowCount
+  } catch (error) {
+    return error.message
+  }
+}
+
+/* **********************
+ *   Check for existing last name
+ * ********************* */
+async function checkExistingLastName(account_lastname){
+  try {
+    const sql = "SELECT * FROM account WHERE account_lastname = $1"
+    const lname = await pool.query(sql, [account_lastname])
+    return lname.rowCount
+  } catch (error) {
+    return error.message
+  }
+}
+
 /* *****************************
 * Return account data using email address
 * ***************************** */
@@ -75,4 +101,4 @@ async function updateInfoPassword(account_password, account_id) {
 }
 
 
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateInfo, updateInfoPassword}
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateInfo, updateInfoPassword, checkExistingFirstName, checkExistingLastName}
