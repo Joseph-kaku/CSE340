@@ -145,9 +145,18 @@ async function updateInfo (req, res){
   const {account_firstname, account_lastname, account_email, account_id} = req.body
 
   const result = await accountModel.updateInfo(account_firstname, account_lastname, account_email, account_id)
+  // 
+  const data = await accountModel.getAccountByAccountId(account_id)
+
   if (result) {
-    req.flash("success", "Account was succesfully updated")
-    res.redirect("/account")
+    try {
+      const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
+      res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
+      req.flash("success", "Account was succesfully updated")
+      return res.redirect("/account/")
+    } catch(error) {
+      throw new Error("dont be dumb")
+    }
   } else {
     req.flash("error", `Sorry the update for ${account_firstname} failed`)
     res.status(501).render("account/updateView", {
@@ -194,6 +203,8 @@ async function updateInfoPassword (req, res) {
     errors:null,
     account_id,
     account_firstname,
+    account_lastname,
+    account_email,
   })
  }
 }
