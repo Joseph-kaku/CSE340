@@ -158,7 +158,7 @@ validate.updateInfoRules = () => {
       const accountId = req.body.account_id; 
       const accountData = await accountModel.getAccountByAccountId(accountId)
       const emailExists = await accountModel.checkExistingEmail(account_email)
-      if (emailExists > 1) {
+      if (emailExists && account_email !== accountData.account_email) {
         throw new Error("Email exists. Please update email")
       }
     }),
