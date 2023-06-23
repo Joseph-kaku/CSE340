@@ -22,13 +22,13 @@
   <form action="/account/updateView" method="post">
     <fieldset>
         <label for="firstname">First Name</label><br>
-        <input type="text" class="fname" name="account_firstname" size="15" required value="<%= locals.accountData.account_firstname %>"><br>
+        <input type="text" class="fname" name="account_firstname" size="15" required value="<%= locals.account_firstname %>"><br>
         <label for="lastname"> Last name</label><br>
-        <input type="text" class="lname" name="account_lastname" size="15" required value="<%= locals.accountData.account_lastname %>"><br>
+        <input type="text" class="lname" name="account_lastname" size="15" required value="<%= locals.account_lastname %>"><br>
         <label for="email">Email: </label> <br>
-        <input name="account_email" id="email" type="text" required placeholder="Enter a valid email address" required value="<%= locals.accountData.account_email %>"> <br>
+        <input name="account_email" id="email" type="text" required placeholder="Enter a valid email address" required value="<%= locals.account_email %>"> <br>
         <input type="submit" value="Update">
-        <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%= locals.inv_id %>" <% } %> >
+        <input type="hidden" name="account_id" <% if(locals.account_id) { %> value="<%= locals.account_id %>" <% } %> >
     </fieldset>
   </form>
 
@@ -39,7 +39,7 @@
     *note your original password will be changed
   </p>
 
-  <form action="/account/updateView" method="post">
+  <form action="/account/updatePassword" method="post">
     <fieldset>
         <label for="password">Password: </label> <br>
         <input name="account_password" id="password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required><br>

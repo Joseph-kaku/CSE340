@@ -141,44 +141,61 @@ async function buildUpdateView (req, res) {
  *  Process update information & password
  * ************************************ */
 async function updateInfo (req, res){
-  const {account_firstname, account_lastname, account_email} = req.body
+  let nav = await utilities.getNav()
+  const {account_firstname, account_lastname, account_email, account_id} = req.body
 
-  const result = await accountModel.updateInfo(account_firstname, account_lastname, account_email)
+  const result = await accountModel.updateInfo(account_firstname, account_lastname, account_email, account_id)
   if (result) {
-    const updateItem = result.account_firstname + " " + result.account_lastname
-    req.flash("success", `Account ${updateItem} was succesfully updated`)
-    res.redirect("/login")
+    req.flash("success", "Account was succesfully updated")
+    res.redirect("/account")
   } else {
-    let nav = await utilities.getNav()
-    const noUpdate = `${account_firstname} ${account_lastname}`
     req.flash("error", `Sorry the update for ${account_firstname} failed`)
     res.status(501).render("account/updateView", {
-      title: "Edit " + noUpdate,
+      title: "Edit " + account_firstname,
       nav,
       errors: null,
       account_firstname,
       account_lastname, 
-      account_email
+      account_email,
+      account_id
     })
   }
 }
 
 async function updateInfoPassword (req, res) {
-  const {account_password} =req.body
+  let nav = await utilities.getNav()
+  const {account_id, account_password, account_firstname, account_lastname, account_email} =req.body
 
-  const result = await accountModel.updateInfoPassword( account_password)
-  if (result) {
-    const passUpdate = result.account_password
-    req.flash("success", `The ${passUpdate} was successfully updated, hope you remember what you used`)
-    res.redirect("/login")
-  } else {
-    const noPassUpdate = `${account_password}`
-    req.flash("error", "Sorry your password was not updated")
-    res.status(501).render("account/updateView",{
-      title: "Edit " + noPassUpdate,
-      account_password
+  let hashedPassword
+  try{
+    hashedPassword = bcrypt.hashSync(account_password, 10)
+  } catch (error) {
+    req.flash("error", 'Sorry, there was an error processing the password change.')
+    res.status(500).render("account/login", {
+      title: "Login",
+      nav,
+      errors: null,
     })
   }
+
+  const result = await accountModel.updateInfoPassword(account_id,hashedPassword, account_firstname, account_lastname, account_email)
+ if (result) {
+  req.flash ("success", "You have successfully updated your password")
+  res.status(201).render("account/login", {
+    title: "Login",
+    nav,
+    errors: null,
+  })
+ } else {
+  req.flash("error", "Sorry the password update failed")
+  res.status(501).render("account/updateView", {
+    title: "Edit Account",
+    nav,
+    errors:null,
+    account_id,
+    account_firstname,
+  })
+ }
 }
 
 module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView, updateInfo, updateInfoPassword}
