@@ -172,32 +172,32 @@ async function updateInfo (req, res){
 
 async function updateInfoPassword (req, res) {
   let nav = await utilities.getNav()
+  const {account_id, account_password, account_firstname, account_lastname, account_email} =req.body
   
   let hashedPassword
   try{
     hashedPassword = bcrypt.hashSync(account_password, 10)
   } catch (error) {
     req.flash("error", 'Sorry, there was an error processing the password change.')
-    res.status(500).render("account/updateView/:account_id", {
+    res.status(500).render("account/updateView", {
       title: "Edit Account",
       nav,
       errors: null,
     })
   }
-  const {account_id, account_password, account_firstname, account_lastname, account_email} =req.body
   const accountId = parseInt(req.body.account_id);
   const accountData = await accountModel.getAccountByAccountId(accountId)
   const result = await accountModel.updateInfoPassword(hashedPassword, account_id)
  if (result) {
   req.flash ("success", "You have successfully updated your password")
-  res.status(201).render("/account/", {
+  res.status(201).render("account/management", {
     title: "Account Management",
     nav,
     errors: null,
   })
  } else {
   req.flash("error", "Sorry the password update failed")
-  res.status(501).render("account/updateView/:account_id", {
+  res.status(501).render("account/updateView", {
     title: "Edit Account",
     nav,
     errors:null,

@@ -195,7 +195,7 @@ validate.checkPassword = async (req, res, next) => {
   errors = validationResult(req)
   if (!errors.isEmpty()){
     let nav = await utilities.getNav()
-    res.render("./account/updateView/:account_id", {
+    res.render("./account/updateView", {
       errors,
       title: "Edit Account",
       nav,

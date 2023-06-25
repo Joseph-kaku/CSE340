@@ -42,7 +42,7 @@ regValidate.checkUpdateInfo,
 utilities.handleErrors(accountController.updateInfo))
 
 // Process the update password attempt
-router.post("/updateVew", 
+router.post("/updateViewPassword", 
 regValidate.updatePasswordRules(),
 regValidate.checkPassword,
 utilities.
