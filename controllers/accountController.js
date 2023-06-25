@@ -120,7 +120,7 @@ async function accountLogin(req, res) {
 }
 
  /* ****************************************
- *  Deliver update information view
+ *  Deliver account update information view
  * ************************************ */
 async function buildUpdateView (req, res) {
   let nav = await utilities.getNav()
@@ -145,7 +145,6 @@ async function updateInfo (req, res){
   const {account_firstname, account_lastname, account_email, account_id} = req.body
 
   const result = await accountModel.updateInfo(account_firstname, account_lastname, account_email, account_id)
-  // 
   const data = await accountModel.getAccountByAccountId(account_id)
 
   if (result) {
@@ -155,7 +154,7 @@ async function updateInfo (req, res){
       req.flash("success", "Account was succesfully updated")
       return res.redirect("/account/")
     } catch(error) {
-      throw new Error("dont be dumb")
+      throw new Error("don't be dumb")
     }
   } else {
     req.flash("error", `Sorry the update for ${account_firstname} failed`)
@@ -173,38 +172,39 @@ async function updateInfo (req, res){
 
 async function updateInfoPassword (req, res) {
   let nav = await utilities.getNav()
-  const {account_id, account_password, account_firstname, account_lastname, account_email} =req.body
-
+  
   let hashedPassword
   try{
     hashedPassword = bcrypt.hashSync(account_password, 10)
   } catch (error) {
     req.flash("error", 'Sorry, there was an error processing the password change.')
-    res.status(500).render("account/login", {
-      title: "Login",
+    res.status(500).render("account/updateView/:account_id", {
+      title: "Edit Account",
       nav,
       errors: null,
     })
   }
-
-  const result = await accountModel.updateInfoPassword(account_id,hashedPassword, account_firstname, account_lastname, account_email)
+  const {account_id, account_password, account_firstname, account_lastname, account_email} =req.body
+  const accountId = parseInt(req.body.account_id);
+  const accountData = await accountModel.getAccountByAccountId(accountId)
+  const result = await accountModel.updateInfoPassword(hashedPassword, account_id)
  if (result) {
   req.flash ("success", "You have successfully updated your password")
-  res.status(201).render("account/login", {
-    title: "Login",
+  res.status(201).render("/account/", {
+    title: "Account Management",
     nav,
     errors: null,
   })
  } else {
   req.flash("error", "Sorry the password update failed")
-  res.status(501).render("account/updateView", {
+  res.status(501).render("account/updateView/:account_id", {
     title: "Edit Account",
     nav,
     errors:null,
-    account_id,
-    account_firstname,
-    account_lastname,
-    account_email,
+    account_id: accountData.accountId,
+    account_firstname: accountData.account_firstname,
+    account_lastname: accountData.account_lastname,
+    account_email: accountData.account_email,
   })
  }
 }

@@ -39,12 +39,13 @@
     *note your original password will be changed
   </p>
 
-  <form action="/account/updatePassword" method="post">
+  <form action="/account/updateView" method="post">
     <fieldset>
         <label for="password">Password: </label> <br>
         <input name="account_password" id="password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required><br>
         <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
         <input type="submit" value="Update Password">
+        <input type="hidden" name="account_id" <% if(locals.account_id) { %> value="<%= locals.account_id %>" <% } %> >
     </fieldset>
   </form>
 

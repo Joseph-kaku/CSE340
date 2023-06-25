@@ -35,15 +35,16 @@ router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.b
 router.get("/updateView/:account_id",
 utilities.handleErrors(accountController.buildUpdateView))
 
-// Process the update attempt
+// Process the update information attempt
 router.post("/updateView",
 regValidate.updateInfoRules(),
 regValidate.checkUpdateInfo,
 utilities.handleErrors(accountController.updateInfo))
 
 // Process the update password attempt
-router.post("/updatePassword", 
+router.post("/updateVew", 
 regValidate.updatePasswordRules(),
+regValidate.checkPassword,
 utilities.
 handleErrors(accountController.updateInfoPassword))
 
