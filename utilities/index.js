@@ -9,6 +9,15 @@ require("dotenv").config()
 Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications()
   let list = '<ul id = "navi">'
+
+  // hamburger menu build
+  list += '<input type="checkbox" id="nav-toggle" hidden>'
+  list += '<label for="nav-toggle" class="nav-toggle">'
+  list += '<span></span>'
+  list += '</label>'
+  list += '<ul class="nav-menu">'
+
+
   list += '<li><a href="/" title="Home page">Home</a></li>'
   data.rows.forEach((row) => {
     list += "<li>"
@@ -25,6 +34,11 @@ Util.getNav = async function (req, res, next) {
   list += "</ul>"
   return list
 }
+
+/* ************************
+ * Constructs the hamburger menu
+ ************************** */ 
+
 
 /* **************************************
 * Build the classification view HTML

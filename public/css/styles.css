@@ -5,6 +5,48 @@
   box-sizing: border-box;
 }
 
+/* Hamburger Menu Styles */
+#nav-toggle {
+  display: none;
+}
+
+.nav-toggle {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  /* margin-bottom: 5px; */
+  transition: background-color 0.3s ease-in-out;
+}
+
+.nav-menu {
+  display: none;
+  list-style-type: none;
+  padding: 0;
+}
+
+#nav-toggle:checked ~ .nav-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-menu li {
+  margin-bottom: 10px;
+}
+
+.nav-menu li a {
+  color: #333;
+  text-decoration: none;
+}
+
 /* Home Phone View */
 #top-header{
   display: flex;
@@ -230,6 +272,14 @@ border: 1px solid white;
 @media screen and (min-width: 900px){
 body {
   background-image: url(/images/site/checkerboard.jpg);
+}
+
+/* Hamburgur menu styles */
+
+#nav-toggle:checked ~ .nav-menu {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
 }
 
 #wrapper{
