@@ -1,0 +1,31 @@
+<!-- Content Heading -->
+<% if (title) { %>
+    <h1> <%= title %> </h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<!-- flash messages if any will be displaced as a result of the following line of code -->
+<%- messages() %>
+
+<!-- Code block to handle errors -->
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
+<!-- Welcome Message -->
+<h2>Thank you for registering</h2>
+
+
+
+
+<!-- links -->
+<p><a href="">Return To Inbox</a></p>
+<a href=""><button></button></a>
+<a href=""><button></button></a>
+<a href=""><button></button></a>
+<a href=""><button></button></a>

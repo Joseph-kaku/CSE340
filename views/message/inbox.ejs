@@ -1,0 +1,25 @@
+<!-- Content Heading -->
+<% if (title) { %>
+    <h1> <%= title %> </h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<!-- flash messages if any will be displaced as a result of the following line of code -->
+<%- messages() %>
+
+<!-- Code block to handle errors -->
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
+<!-- Welcome message -->
+<h2><%- locals.accountData.account_firstname  %> Client Inbox</h2>
+<ul>
+    <li><a href="#">Create a new Message</a></li>
+    <li><a href="#">View archived Messages</a></li>
+</ul>

@@ -52,22 +52,10 @@ async function checkExistingLastName(account_lastname){
   }
 }
 
-/* **********************
- *   Check for existing email(in update form)
- * ********************* */
-// async function checkEmail(account_email){
-//   try {
-//     const sql = "SELECT * FROM account WHERE account_email != $1"
-//     const email = await pool.query(sql, [account_email])
-//     return email.rowCount
-//   } catch(error) {
-//     return error.message
-//   }
-// }
 
-/* *****************************
+/* ***************************************
 * Return account data using email address
-* ***************************** */
+* ****************************************/
 async function getAccountByEmail (account_email) {
   try {
     const result = await pool.query(
