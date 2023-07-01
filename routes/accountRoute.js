@@ -48,4 +48,14 @@ regValidate.checkPassword,
 utilities.
 handleErrors(accountController.updateInfoPassword))
 
+
+
+/* ******************************************************************************************************************************************************************************
+*                                                               THIS NEXT SECTION IS FOR MESSAGES
+* ********************************************************************************************************************************************************************************/
+
+// route to build the inbox view
+router.get("/inbox/:account_id", utilities.handleErrors(accountController.buildInbox))
+
+
 module.exports = router;

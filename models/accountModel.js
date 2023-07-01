@@ -100,4 +100,19 @@ async function updateInfoPassword(account_password, account_id) {
 }
 
 
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateInfo, updateInfoPassword, checkExistingFirstName, checkExistingLastName}
+/* ******************************************************************************************************************************************************************************
+*                                                               THIS NEXT SECTION IS FOR MESSAGES
+* ********************************************************************************************************************************************************************************/
+
+async function getMessagesById(account_id) {
+  try {
+    const sql =
+      'SELECT message_id, message_subject, message_body, message_created, message_to, message_from, message_read, message_archived FROM message WHERE message_to = $1'
+    return await pool.query(sql, [account_id])
+  } catch(error) {
+    return new Error(error)
+  }
+}
+
+
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateInfo, updateInfoPassword, checkExistingFirstName, checkExistingLastName, getMessagesById}

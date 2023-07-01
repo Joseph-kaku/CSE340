@@ -35,10 +35,6 @@ Util.getNav = async function (req, res, next) {
   return list
 }
 
-/* ************************
- * Constructs the hamburger menu
- ************************** */ 
-
 
 /* **************************************
 * Build the classification view HTML
@@ -182,4 +178,26 @@ Util.checkJWTToken = (req, res, next) => {
     res.status(403).redirect("/account/login")
   }
  }
+
+/* ******************************************************************************************************************************************************************************
+*                                                               THIS NEXT SECTION IS FOR MESSAGES
+* ********************************************************************************************************************************************************************************/
+
+/* ********************************************
+*  Build the table for messages
+* *********************************************/
+Util.buildMessageTable = async function (item) {
+  // let dataT = accountModel.getMessagesById()
+  let table = '<thead>'
+  table += '<tr><th>Received</th><th>Subject</th><th>From</th><th>Read</th></tr>'
+  table += '<thead>'
+  
+  table += '<tbody>'
+  item.forEach(function (item) {
+    table += `<tr><td>${item.message_created}</td><td>${item.message_subject}</td><td>${item.message_from}</td><td>${item.message_read}</td></tr>`
+  })
+  table += '</tbody>'
+  return table
+}
+
 module.exports = Util
