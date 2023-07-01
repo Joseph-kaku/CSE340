@@ -187,17 +187,23 @@ Util.checkJWTToken = (req, res, next) => {
 *  Build the table for messages
 * *********************************************/
 Util.buildMessageTable = async function (item) {
-  // let dataT = accountModel.getMessagesById()
-  let table = '<thead>'
+  let table = '<table><thead>'
   table += '<tr><th>Received</th><th>Subject</th><th>From</th><th>Read</th></tr>'
-  table += '<thead>'
+  table += '</thead>'
   
   table += '<tbody>'
   item.forEach(function (item) {
     table += `<tr><td>${item.message_created}</td><td>${item.message_subject}</td><td>${item.message_from}</td><td>${item.message_read}</td></tr>`
   })
-  table += '</tbody>'
+  table += '</tbody></table>'
   return table
+}
+
+/* **********************************************
+ * Constructs a drop down menu for selecting Names
+ ************************************************/
+Util.getName = async function(selected) {
+  
 }
 
 module.exports = Util
