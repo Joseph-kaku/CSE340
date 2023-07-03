@@ -200,6 +200,13 @@ Util.buildMessageTable = async function (item) {
 }
 
 /* **********************************************
+ * Constructs the view message view
+ ************************************************/
+Util.buildMessageView = async function (item) {
+  
+}
+
+/* **********************************************
  * Constructs a drop down menu for selecting Names
  ************************************************/
 Util.getName = async function(selected) {

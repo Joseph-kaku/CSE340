@@ -221,7 +221,6 @@ async function buildInbox(req, res) {
   const accountId = req.params.account_id
   const accountData = await accountModel.getAccountByAccountId(accountId)
   const messageDataTable = await accountModel.getMessagesById(accountId)
-  console.log(messageDataTable)
   const table = await utilities.buildMessageTable(messageDataTable.rows)
   res.render("account/inbox", {
     title: accountData.account_firstname + " " + accountData.account_lastname + " " + "inbox",
@@ -236,6 +235,16 @@ async function buildInbox(req, res) {
 * *****************************************/
 async function buildMessage(req, res) {
   let nav = await utilities.getNav()
+  const accountId = req.params.account_id
+  const messageId = req.params.message_id
+  const accountData = await accountModel.getMessagesById(accountId)
+  const messageData = await accountModel.getMessageViewByID(messageId)
+  res.render("/account/inbox/:message_id", {
+    title: messageData.message_subject,
+    nav,
+    error:null,
+
+  })
 }
 
-module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView, updateInfo, updateInfoPassword, buildInbox}
+module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView, updateInfo, updateInfoPassword, buildInbox, buildMessage}

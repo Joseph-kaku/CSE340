@@ -114,6 +114,15 @@ async function getMessagesById(account_id) {
   }
 }
 
+async function getMessageViewByID(message_id) {
+  try {
+    const sql = 'SELECT message_id, message_subject, message_from, message_body FROM message WHERE message_to=$1'
+    return await pool.query(sql, [message_id])
+  } catch(error){
+    return new Error(error)
+  }
+}
 
 
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateInfo, updateInfoPassword, checkExistingFirstName, checkExistingLastName, getMessagesById}
+
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateInfo, updateInfoPassword, checkExistingFirstName, checkExistingLastName, getMessagesById, getMessageViewByID}
