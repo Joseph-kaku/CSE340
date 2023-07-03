@@ -49,13 +49,15 @@ utilities.
 handleErrors(accountController.updateInfoPassword))
 
 
-
 /* ******************************************************************************************************************************************************************************
 *                                                               THIS NEXT SECTION IS FOR MESSAGES
 * ********************************************************************************************************************************************************************************/
 
 // route to build the inbox view
 router.get("/inbox/:account_id", utilities.handleErrors(accountController.buildInbox))
+
+// route to build the message view
+router.get("/message/:message_id", utilities.handleErrors())
 
 
 module.exports = router;

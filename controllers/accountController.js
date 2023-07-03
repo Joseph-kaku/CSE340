@@ -216,7 +216,7 @@ async function updateInfoPassword (req, res) {
 /* ****************************************
 *  Deliver message inbox view
 * *****************************************/
-async function buildInbox(req, res, next) {
+async function buildInbox(req, res) {
   let nav = await utilities.getNav()
   const accountId = req.params.account_id
   const accountData = await accountModel.getAccountByAccountId(accountId)
@@ -231,5 +231,11 @@ async function buildInbox(req, res, next) {
   })
 }
 
+/* ****************************************
+*  Deliver message view
+* *****************************************/
+async function buildMessage(req, res) {
+  let nav = await utilities.getNav()
+}
 
 module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView, updateInfo, updateInfoPassword, buildInbox}
