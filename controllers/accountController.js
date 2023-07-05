@@ -242,6 +242,8 @@ async function buildMessage(req, res) {
   res.render("account/messages", {
     title: messageData.message_subject,
     nav,
+    message_from: messageData.message_from,
+    message_body: messageData.message_body,
     error:null,
   })
 }
