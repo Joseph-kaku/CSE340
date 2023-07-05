@@ -235,15 +235,14 @@ async function buildInbox(req, res) {
 * *****************************************/
 async function buildMessage(req, res) {
   let nav = await utilities.getNav()
-  const accountId = req.params.account_id
+  // const accountId = req.params.account_id
   const messageId = req.params.message_id
-  const accountData = await accountModel.getMessagesById(accountId)
+  // const accountData = await accountModel.getMessagesById(accountId)
   const messageData = await accountModel.getMessageViewByID(messageId)
-  res.render("/account/inbox/:message_id", {
+  res.render("account/messages", {
     title: messageData.message_subject,
     nav,
     error:null,
-
   })
 }
 

@@ -181,7 +181,6 @@ invCont.buildEditView = async function (req, res, next) {
   const itemData = await invModel.getBuildByCarView(inv_id)
   const table = await invModel.getClassifications()
   let classificationSelect = await utilities.getClass(itemData[0].classification_id)
-  // const classificationSelect = await utilities.getClass(itemData.classification_id)
   const itemName = `${itemData[0].inv_make} ${itemData[0].inv_model}`
   res.render("./inventory/editInventory", {
     title: "Edit " + itemName,

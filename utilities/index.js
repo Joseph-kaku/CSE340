@@ -193,17 +193,10 @@ Util.buildMessageTable = async function (item) {
   
   table += '<tbody>'
   item.forEach(function (item) {
-    table += `<tr><td>${item.message_created}</td><td><a href='/account/messages/${item.message_subject}'</a></td><td>${item.account_firstname} ${item.account_lastname}</td><td>${item.message_read}</td></tr>`
+    table += `<tr><td>${item.message_created}</td><td><a href='/account/messages/${item.message_subject}'</a>${item.message_subject}</td><td>${item.account_firstname} ${item.account_lastname}</td><td>${item.message_read}</td></tr>`
   })
   table += '</tbody></table>'
   return table
-}
-
-/* **********************************************
- * Constructs the view message view
- ************************************************/
-Util.buildMessageView = async function (item) {
-  
 }
 
 /* **********************************************
