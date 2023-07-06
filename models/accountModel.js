@@ -123,6 +123,13 @@ async function getMessageViewByID(message_id) {
   }
 }
 
+/* ***************************
+ *  Get the account names for the dropdown
+ * ************************** */
+async function getAccountNames(){
+  return await pool.query("SELECT * FROM public.account ORDER BY account_firstname, account_lastname")
+}
 
 
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateInfo, updateInfoPassword, checkExistingFirstName, checkExistingLastName, getMessagesById, getMessageViewByID}
+
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateInfo, updateInfoPassword, checkExistingFirstName, checkExistingLastName, getMessagesById, getMessageViewByID, getAccountNames}

@@ -239,7 +239,7 @@ async function buildMessage(req, res) {
   const messageId = req.params.message_id
   // const accountData = await accountModel.getMessagesById(accountId)
   const messageData = await accountModel.getMessageViewByID(messageId)
-  res.render("account/messages", {
+  res.render("./account/messages/:message_id", {
     title: messageData.message_subject,
     nav,
     message_from: messageData.message_from,

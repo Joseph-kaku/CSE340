@@ -1,4 +1,5 @@
 const invModel = require("../models/inventoryModel")
+const accModel = require("../models/accountModel")
 const Util = {}
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
@@ -202,8 +203,19 @@ Util.buildMessageTable = async function (item) {
 /* **********************************************
  * Constructs a drop down menu for selecting Names
  ************************************************/
-Util.getName = async function(selected) {
-  
+Util.getName = async function(optionSelected) {
+  let data = await accModel.getAccountNames()
+  let select = "<select name='account_id' id='accountNames'>"
+  let options = "<option value=''>Choose an email recipient</option>"
+  data.rows.forEach((row) => {
+    options += `
+    <option
+      value = "${row.account_id}"
+      ${row.account_id === Number(optionSelected)? 'selected':''} > ${row.account_id} </option>`
+  })
+  select += options
+  select += "</select>"
+  return select
 }
 
 module.exports = Util
