@@ -194,7 +194,7 @@ Util.buildMessageTable = async function (item) {
   
   table += '<tbody>'
   item.forEach(function (item) {
-    table += `<tr><td>${item.message_created.toISOString().slice(0, 10)}</td><td><a href='/account/messages/${item.message_subject}'</a>${item.message_subject}</td><td>${item.account_firstname} ${item.account_lastname}</td><td>${item.message_read}</td></tr>`
+    table += `<tr><td>${item.message_created.toISOString().slice(0, 10)}</td><td><a href='/account/messages/${item.message_id}'</a>${item.message_subject}</td><td>${item.account_firstname} ${item.account_lastname}</td><td>${item.message_read}</td></tr>`
   })
   table += '</tbody></table>'
   return table
