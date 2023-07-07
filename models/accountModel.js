@@ -132,9 +132,20 @@ async function getMessageViewByID(message_id) {
 /* ***************************
  *  Get the account names for the dropdown
  * ************************** */
+// async function getAccountNames(){
+//   return await pool.query('SELECT * FROM public.account ORDER BY account_firstname, account_lastname')
+// }
 async function getAccountNames(){
-  return await pool.query("SELECT * FROM public.account ORDER BY account_firstname, account_lastname")
+try{
+  const result = await pool.query('SELECT * FROM public.account ORDER BY account_firstname')
+  return result.rows
+} catch(error) {
+  return new Error(error)
 }
+}
+/* ***************************
+ *  Insert new message into DB
+ * ****************************/
 
 
 

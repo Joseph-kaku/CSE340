@@ -248,4 +248,19 @@ async function buildMessage(req, res) {
   })
 }
 
-module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView, updateInfo, updateInfoPassword, buildInbox, buildMessage}
+/* ****************************************
+*  Deliver create message view
+* *****************************************/
+async function newMessageView(req, res) {
+let nav = await utilities.getNav()
+const names = await accountModel.getAccountNames()
+let select = await utilities.getName(names)
+res.render("./account/createMessage", {
+  title: "New Message",
+  nav,
+  select,
+  errors:null,
+})
+}
+
+module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView, updateInfo, updateInfoPassword, buildInbox, buildMessage, newMessageView}

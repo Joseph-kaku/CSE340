@@ -18,5 +18,18 @@
   <% } %>
 
 <!-- Welcome Message -->
-<h1>New Message</h1>
 
+
+<!-- Form for new message -->
+<form action="/account/createMessage" method="post">
+  <p>ALL FIELDS ARE REQUIRED</p><br>
+  <fieldset>
+    <label for="accountId" id="accountNames">To:</label> <br>
+    <!-- droplist in -->
+    <%- select %> <br>
+    <label for="subjectMessage">Subject:</label>
+    <input name="subject_message" id="subjectMessage" type="text" required>
+    <label for="subjectBody">Message:</label>
+    <textarea name="subject_body" id="subjectBody" cols="30" rows="10" required></textarea> <br>
+  </fieldset>
+</form>

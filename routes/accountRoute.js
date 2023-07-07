@@ -59,5 +59,7 @@ router.get("/inbox/:account_id", utilities.handleErrors(accountController.buildI
 // route to build the message view
 router.get("/messages/:message_id", utilities.handleErrors(accountController.buildMessage))
 
+// Route for create new message view
+router.get("/createMessage", utilities.handleErrors(accountController.newMessageView))
 
 module.exports = router;
