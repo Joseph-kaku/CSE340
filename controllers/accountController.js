@@ -237,11 +237,11 @@ async function buildMessage(req, res) {
   let nav = await utilities.getNav()
   const messageId = req.params.message_id
   const messageData = await accountModel.getMessageViewByID(messageId)
-  console.log(messageData)
-  console.log(messageId)
+  let div = await utilities.buildMessageToRead(messageData)
   res.render("./account/messages", {
     title: "View",
     nav,
+    div,
     errors:null,
     message_id: messageId
   })

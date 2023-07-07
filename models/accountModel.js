@@ -104,6 +104,9 @@ async function updateInfoPassword(account_password, account_id) {
 *                                                               THIS NEXT SECTION IS FOR MESSAGES
 * ********************************************************************************************************************************************************************************/
 
+/* ***************************
+ * 
+ * ************************** */
 async function getMessagesById(account_id) {
   try {
     const sql =
@@ -114,15 +117,9 @@ async function getMessagesById(account_id) {
   }
 }
 
-// async function getMessageViewByID(message_id) {
-//   try {
-//     const sql = 'SELECT message_id, message_subject, message_from, message_body FROM message WHERE message_to=$1'
-//     return await pool.query(sql, [message_id])
-//   } catch(error){
-//     return new Error(error)
-//   }
-// }
-
+/* ***************************
+ * 
+ * ************************** */
 async function getMessageViewByID(message_id) {
   try {
   const result = await pool.query('SELECT message_id, message_subject, message_from, message_body FROM message WHERE message_to=$1', [message_id]) 
