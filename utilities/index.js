@@ -205,9 +205,9 @@ Util.buildMessageTable = async function (item) {
 * *********************************************/
 Util.buildMessageToRead = async function (item) {
   let div = '<div>'
-  div += '<h1 id="subject"> Subject:' + item.message_subject + '</h1>'
-  div += '<h1 id="from"> From:' + item.message_from + '</h1>'
-  div += '<h1 id="body"> Message:' + item.message_body + '</h1>'
+  div += '<h1 id="subject"> Subject:' + item[0].message_subject + '</h1>'
+  div += '<h1 id="from"> From:' + item[0].message_from + '</h1>'
+  div += '<h1 id="body"> Message:' + item[0].message_body + '</h1>'
   div += '</div>'
  return div
 }

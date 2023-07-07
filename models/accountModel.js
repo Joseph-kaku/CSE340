@@ -122,7 +122,7 @@ async function getMessagesById(account_id) {
  * ************************** */
 async function getMessageViewByID(message_id) {
   try {
-  const result = await pool.query('SELECT message_id, message_subject, message_from, message_body FROM message WHERE message_to=$1', [message_id]) 
+    const result = await pool.query('SELECT message_id, message_subject, message_from, message_body FROM public.message WHERE message_id = $1', [message_id]) 
   return result.rows
   } catch(error){
     return new Error(error)
