@@ -263,4 +263,41 @@ res.render("./account/createMessage", {
 })
 }
 
-module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView, updateInfo, updateInfoPassword, buildInbox, buildMessage, newMessageView}
+/* ****************************************
+*  Process message send
+* *****************************************/
+async function sendNewMessage (req, res) {
+  const {message_to, message_from, message_subject, message_body} = req.body
+
+  const result = await accountModel.newMessageSent(message_to, message_from, message_subject, message_body)
+  if (result) {
+    let nav = await utilities.getNav()
+    let accNames = await accountModel.getAccountNames()
+    let select = await utilities.getName(accNames)
+    const accountId = req.params.account_id
+    const accountData = await accountModel.getAccountByAccountId(accountId)
+    const messageDataTable = await accountModel.getMessagesById(accountId)
+    const table = await utilities.buildMessageTable(messageDataTable.rows)
+    req.flash("success", "Your message has been sent")
+    res.status(201).render("account/inbox", {
+      title: "Account Management",
+      nav,
+      errors: null,
+      select,
+      table
+    }) 
+  } else {
+    req.flash ("error", "Sorry. Message was not sent. Try again")
+    res.status(501).render("account/createMessage", {
+      title: "New message",
+      nav,
+      errors,
+      select,
+      table
+    })
+  }
+
+
+}
+
+module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView, updateInfo, updateInfoPassword, buildInbox, buildMessage, newMessageView, sendNewMessage}

@@ -132,21 +132,21 @@ async function getMessageViewByID(message_id) {
 /* ***************************
  *  Get the account names for the dropdown
  * ************************** */
-// async function getAccountNames(){
-//   return await pool.query('SELECT * FROM public.account ORDER BY account_firstname, account_lastname')
-// }
 async function getAccountNames(){
-try{
-  const result = await pool.query('SELECT * FROM public.account ORDER BY account_firstname')
-  return result.rows
-} catch(error) {
-  return new Error(error)
+  return await pool.query('SELECT * FROM public.account ORDER BY account_firstname, account_lastname')
 }
-}
+
 /* ***************************
  *  Insert new message into DB
  * ****************************/
+async function newMessageSent(message_to, message_from, message_subject, message_body, message_id) {
+  try {
+    const sql = 'INSERT INTO public.message (message_to, message_from, message_subject, message_body, message_id) VALUES ($1, $2, $3, $4, $5) RETURNING *'
+    return await pool.query(sql, [message_to, message_from, message_subject, message_body, message_id])
+  } catch(error) {
+    return error.message
+  }
+}
 
 
-
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateInfo, updateInfoPassword, checkExistingFirstName, checkExistingLastName, getMessagesById, getMessageViewByID, getAccountNames}
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateInfo, updateInfoPassword, checkExistingFirstName, checkExistingLastName, getMessagesById, getMessageViewByID, getAccountNames, newMessageSent}

@@ -22,14 +22,16 @@
 
 <!-- Form for new message -->
 <form action="/account/createMessage" method="post">
-  <p>ALL FIELDS ARE REQUIRED</p><br>
   <fieldset>
+    <p>ALL FIELDS ARE REQUIRED</p>
     <label for="accountId" id="accountNames">To:</label> <br>
     <!-- droplist in -->
     <%- select %> <br>
-    <label for="subjectMessage">Subject:</label>
-    <input name="subject_message" id="subjectMessage" type="text" required>
-    <label for="subjectBody">Message:</label>
+    <label for="subjectMessage">Subject:</label> <br>
+    <input name="subject_message" id="subjectMessage" type="text" required> <br>
+    <label for="subjectBody">Message:</label> <br>
     <textarea name="subject_body" id="subjectBody" cols="30" rows="10" required></textarea> <br>
+    <input type="submit" name="submit" value="Send" id="sendButton">
+    <input type="hidden" name="message_from" <% if(locals.message_from) { %> value="<%= locals.message_from %>" <% } %> >
   </fieldset>
 </form>

@@ -205,9 +205,9 @@ Util.buildMessageTable = async function (item) {
 * *********************************************/
 Util.buildMessageToRead = async function (item) {
   let div = '<div>'
-  div += '<h1 id="subject"> Subject:' + item[0].message_subject + '</h1>'
-  div += '<h1 id="from"> From:' + item[0].message_from + '</h1>'
-  div += '<h1 id="body"> Message:' + item[0].message_body + '</h1>'
+  div += '<h3 id="subject"> Subject:' + item[0].message_subject + '</h3>'
+  div += '<h3 id="from"> From:' + item[0].message_from + '</h3>'
+  div += '<h3 id="body"> Message:' + item[0].message_body + '</h3>'
   div += '</div>'
  return div
 }
@@ -222,9 +222,9 @@ Util.getName = async function(optionSelected) {
   data.rows.forEach((row) => {
     options += `
     <option
-      value = "${row.account_id}"
-      ${row.account_id === Number(optionSelected)? 'selected':''} > ${row.account_id} </option>`
-  })
+      value = "${row.account_firstname} ${row.account_lastname}"
+      ${row.account_firstname === Number(optionSelected)? 'selected':''} > ${row.account_firstname} ${row.account_lastname} </option>`
+    })
   select += options
   select += "</select>"
   return select

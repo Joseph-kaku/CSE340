@@ -62,4 +62,8 @@ router.get("/messages/:message_id", utilities.handleErrors(accountController.bui
 // Route for create new message view
 router.get("/createMessage", utilities.handleErrors(accountController.newMessageView))
 
+// Route to send a new message
+router.post("/createMessage", 
+utilities.handleErrors(accountController.sendNewMessage))
+
 module.exports = router;
