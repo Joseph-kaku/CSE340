@@ -116,15 +116,10 @@ async function getMessagesById(account_id) {
   //   return new Error(error)
   // }
   try {
-
     const sql = "SELECT a.account_firstname, account_lastname, message_id, message_from, message_to, message_created, message_read, message_body, message_subject FROM message m FULL JOIN account a ON m.message_from = a.account_id WHERE message_to = $1 AND message_read = false";
-
     return await pool.query(sql, [account_id]);
-
   } catch (error) {
-
     console.error("getMessageByMessage_to error " + error);
-
   }
 }
 
@@ -133,7 +128,7 @@ async function getMessagesById(account_id) {
  * ************************** */
 async function getMessageViewByID(message_id) {
   try {
-    const result = await pool.query('SELECT message_id, message_subject, message_from, message_body FROM public.message WHERE message_id = $1', [message_id]) 
+    const result = await pool.query('SELECT message_id, message_subject, message_from, message_body, message_created FROM public.message WHERE message_id = $1', [message_id]) 
   return result.rows
   } catch(error){
     return new Error(error)

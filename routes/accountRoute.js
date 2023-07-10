@@ -67,7 +67,7 @@ router.post("/createMessage",
 utilities.handleErrors(accountController.sendNewMessage))
 
 // Route for reply message view
-router.get("/reply", utilities.handleErrors(accountController.replyMessage))
+router.get("inbox/reply", utilities.handleErrors(accountController.replyMessageView))
 
 // Route for send reply message
 router.post("/reply", utilities.handleErrors() )

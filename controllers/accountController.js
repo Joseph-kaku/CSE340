@@ -297,7 +297,7 @@ async function sendNewMessage (req, res) {
     })
   }
 
-
+}
   /* ****************************************
 *  Deliver reply message view
 * *****************************************/
@@ -315,7 +315,6 @@ async function replyMessage(req, res) {
   })
 }
 
-}
 
 
 module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView, updateInfo, updateInfoPassword, buildInbox, buildMessage, newMessageView, sendNewMessage, replyMessage}
