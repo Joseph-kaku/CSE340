@@ -17,21 +17,19 @@
    </ul>
   <% } %>
 
-<!-- Welcome Message -->
-
 
 <!-- Form for new message -->
 <form action="/account/createMessage" method="post">
   <fieldset>
     <p>ALL FIELDS ARE REQUIRED</p>
-    <label for="accountId" id="accountNames">To:</label> <br>
+    <label for="message_to" id="accountNames">To:</label> <br>
     <!-- droplist in -->
     <%- select %> <br>
-    <label for="subjectMessage">Subject:</label> <br>
-    <input name="subject_message" id="subjectMessage" type="text" required> <br>
-    <label for="subjectBody">Message:</label> <br>
-    <textarea name="subject_body" id="subjectBody" cols="30" rows="10" required></textarea> <br>
+    <label for="message_subject">Subject:</label> <br>
+    <input name="message_subject" id="subjectMessage" type="text" required> <br>
+    <label for="message_body">Message:</label> <br>
+    <textarea name="message_body" id="subjectBody" cols="30" rows="10" required></textarea> <br>
     <input type="submit" name="submit" value="Send" id="sendButton">
-    <input type="hidden" name="message_from" <% if(locals.message_from) { %> value="<%= locals.message_from %>" <% } %> >
+    <input type="hidden" name="message_from" <% if(locals.accountData.account_id) { %> value="<%= locals.accountData.account_id %>" <% } %> >
   </fieldset>
 </form>

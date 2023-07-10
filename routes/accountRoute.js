@@ -66,4 +66,10 @@ router.get("/createMessage", utilities.handleErrors(accountController.newMessage
 router.post("/createMessage", 
 utilities.handleErrors(accountController.sendNewMessage))
 
+// Route for reply message view
+router.get("/reply", utilities.handleErrors(accountController.replyMessage))
+
+// Route for send reply message
+router.post("/reply", utilities.handleErrors() )
+
 module.exports = router;

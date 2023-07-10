@@ -1,0 +1,25 @@
+<!-- Content Heading -->
+<% if (title) { %>
+    <h1> <%= title %> </h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+  
+  <!-- flash messages if any will be displaced as a result of the following line of code -->
+  <%- messages() %>
+
+
+  <!-- Form for replying a message -->
+  <form action="/account/reply">
+    <fieldset>
+        <p>ALL FIELDS ARE REQUIRED</p>
+        <label for="message_from" id="accountNames">To:</label> <br>
+        <input name="message_from" type="text" value= "<%= locals.accountData.account_firstname %><%= locals.accountData.account_lastname %>">
+        <label for="message_subject">Subject:</label> <br>
+        <input name="message_subject" id="subjectMessage" type="text" value="<%= locals.messageData.message_subject %>" required> <br>
+        <label for="message_body">Message:</label> <br>
+        <textarea name="message_body" id="subjectBody" cols="30" rows="10" value="//////Previous Message///// <%= locals.messageData.message_body %>" required></textarea> <br>
+        <input type="submit" name="submit" value="Send" id="sendButton">
+    <input type="hidden" name="message_from" <% if(locals.accountData.account_id) { %> value="<%= locals.accountData.account_id %>" <% } %> >
+    </fieldset>
+  </form>

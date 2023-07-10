@@ -205,9 +205,9 @@ Util.buildMessageTable = async function (item) {
 * *********************************************/
 Util.buildMessageToRead = async function (item) {
   let div = '<div>'
-  div += '<h3 id="subject"> Subject:' + item[0].message_subject + '</h3>'
-  div += '<h3 id="from"> From:' + item[0].message_from + '</h3>'
-  div += '<h3 id="body"> Message:' + item[0].message_body + '</h3>'
+  div += '<h3 id="subject"> Subject:' + item.rows[0].message_subject + '</h3>'
+  div += '<h3 id="from"> From:' + item.rows[0].account_firstname + " " + item.rows[0].account_lastname + '</h3>'
+  div += '<h3 id="body"> Message:' + item.rows[0].message_body + '</h3>'
   div += '</div>'
  return div
 }
@@ -215,17 +215,18 @@ Util.buildMessageToRead = async function (item) {
 /* **********************************************
  * Constructs a drop down menu for selecting Names
  ************************************************/
-Util.getName = async function(optionSelected) {
+
+Util.getName = async function(account_id = null) {
   let data = await accModel.getAccountNames()
-  let select = "<select name='account_id' id='accountNames'>"
-  let options = "<option value=''>Choose an email recipient</option>"
+  let select = "<select name='message_to' id='accountNames'>"
+      select += "<option value=''>Choose an email recipient</option>"
   data.rows.forEach((row) => {
-    options += `
-    <option
-      value = "${row.account_firstname} ${row.account_lastname}"
-      ${row.account_firstname === Number(optionSelected)? 'selected':''} > ${row.account_firstname} ${row.account_lastname} </option>`
+      select += "<option value = " + row.account_id;
+      if (account_id == row.account_id) {
+        select += "selected";
+      }
+      select += " >" + row.account_firstname + row.account_lastname + "</option>"
     })
-  select += options
   select += "</select>"
   return select
 }

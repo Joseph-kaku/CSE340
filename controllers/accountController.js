@@ -235,16 +235,16 @@ async function buildInbox(req, res) {
 * *****************************************/
 async function buildMessage(req, res) {
   let nav = await utilities.getNav()
-  const messageId = req.params.message_id
-  const messageData = await accountModel.getMessageViewByID(messageId)
+  const accountId = res.locals.accountData.account_id
+  const messageData = await accountModel.getMessagesById(accountId)
+  // console.log(messageData.rows[0].message_subject)
   let div = await utilities.buildMessageToRead(messageData)
-  console.log(messageData)
-  res.render("./account/messages", {
-    title: messageData[0].message_subject,
+  res.render("account/messages", {
+    title: messageData.rows[0].message_subject,
     nav,
     div,
     errors:null,
-    message_id: messageId
+    account_id: accountId
   })
 }
 
@@ -270,16 +270,16 @@ async function sendNewMessage (req, res) {
   const {message_to, message_from, message_subject, message_body} = req.body
 
   const result = await accountModel.newMessageSent(message_to, message_from, message_subject, message_body)
+  console.log(result)
   if (result) {
     let nav = await utilities.getNav()
-    let accNames = await accountModel.getAccountNames()
-    let select = await utilities.getName(accNames)
+    let select = await utilities.getName()
     const accountId = req.params.account_id
-    const accountData = await accountModel.getAccountByAccountId(accountId)
+    // const accountData = await accountModel.getAccountByAccountId(accountId)
     const messageDataTable = await accountModel.getMessagesById(accountId)
     const table = await utilities.buildMessageTable(messageDataTable.rows)
     req.flash("success", "Your message has been sent")
-    res.status(201).render("account/inbox", {
+    res.status(201).render("account/management", {
       title: "Account Management",
       nav,
       errors: null,
@@ -298,6 +298,25 @@ async function sendNewMessage (req, res) {
   }
 
 
+  /* ****************************************
+*  Deliver reply message view
+* *****************************************/
+async function replyMessage(req, res) {
+  let nav = await utilities.getNav()
+  const accountId = res.locals.accountData.account_id
+  const messageData = await accountModel.getMessagesById(accountId)
+  let div = await utilities.buildMessageToRead(messageData)
+  res.render("account/reply", {
+    title: "Reply Message",
+    nav,
+    div,
+    errors:null,
+    account_id: accountId
+  })
 }
 
-module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView, updateInfo, updateInfoPassword, buildInbox, buildMessage, newMessageView, sendNewMessage}
+}
+
+
+module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView, updateInfo, updateInfoPassword, buildInbox, buildMessage, newMessageView, sendNewMessage, replyMessage}
+
