@@ -203,14 +203,14 @@ Util.buildMessageTable = async function (item) {
 /* ********************************************
 *  Build the read message
 * *********************************************/
-Util.buildMessageToRead = async function (item) {
-  let div = '<div>'
-  div += '<h3 id="subject"> Subject:' + item.rows[0].message_subject + '</h3>'
-  div += '<h3 id="from"> From:' + item.rows[0].account_firstname + " " + item.rows[0].account_lastname + '</h3>'
-  div += '<h3 id="body"> Message:' + item.rows[0].message_body + '</h3>'
-  div += '</div>'
- return div
-}
+// Util.buildMessageToRead = async function (item) {
+//   let div = '<div>'
+//   div += '<h3 id="subject"> Subject:' + item.rows[0].message_subject + '</h3>'
+//   div += '<h3 id="from"> From:' + item.rows[0].account_firstname + " " + item.rows[0].account_lastname + '</h3>'
+//   div += '<h3 id="body"> Message:' + item.rows[0].message_body + '</h3>'
+//   div += '</div>'
+//  return div
+// }
 
 /* **********************************************
  * Constructs a drop down menu for selecting Names
@@ -222,9 +222,7 @@ Util.getName = async function(account_id = null) {
       select += "<option value=''>Choose an email recipient</option>"
   data.rows.forEach((row) => {
       select += "<option value = " + row.account_id;
-      if (account_id == row.account_id) {
-        select += "selected";
-      }
+      if (account_id == row.account_id) {select += "selected";}
       select += " >" + row.account_firstname + row.account_lastname + "</option>"
     })
   select += "</select>"
