@@ -183,6 +183,14 @@ async function markMessageAsArchived (message_id){
 /* **********************************
  * Show archived messages in the DB
  * **********************************/
+async function getArchivedMessages(message_id) {
+  try {
+    const result = await pool.query('SELECT message_id, message_subject, message_from, message_body, message_created FROM public.message WHERE message_archived = true', [message_id]) 
+  return result.rows
+  } catch(error){
+    return new Error(error)
+  }
+}
 
 /* **********************************
  * Delete messages in the DB
@@ -196,4 +204,4 @@ async function deleteTheMessage(message_id) {
   }
 }
 
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateInfo, updateInfoPassword, checkExistingFirstName, checkExistingLastName, getMessagesById, getMessageViewByID, getAccountNames, newMessageSent, markMessageAsRead, markMessageAsArchived, deleteTheMessage}
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateInfo, updateInfoPassword, checkExistingFirstName, checkExistingLastName, getMessagesById, getMessageViewByID, getAccountNames, newMessageSent, markMessageAsRead, markMessageAsArchived, deleteTheMessage, getArchivedMessages}

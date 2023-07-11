@@ -75,6 +75,9 @@ router.post("/reply", utilities.handleErrors() )
 // Route to mark as read
 router.post("/read/:message_id", utilities.handleErrors(accountController.markAsRead))
 
+// Route to archived message view
+router.get("/archive", utilities.handleErrors(accountController.archiveMessageView))
+
 // Route to archive message
 router.post("/archive/:message_id", utilities.handleErrors(accountController.archiveMessage))
 

@@ -201,6 +201,10 @@ Util.buildMessageTable = async function (item) {
 }
 
 /* ********************************************
+*  Build the table for archived messages
+* *********************************************/
+
+/* ********************************************
 *  Build the read message
 * *********************************************/
 // Util.buildMessageToRead = async function (item) {

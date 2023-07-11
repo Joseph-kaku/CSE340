@@ -370,6 +370,23 @@ async function markAsRead(req, res) {
 }
 }
 
+/******************************************
+*  Deliver archive view
+*******************************************/
+async function archiveMessageView(req, res) {
+  let nav = await utilities.getNav()
+  const accountId = req.params.account_id
+  const accountData = await accountModel.getAccountByAccountId(accountId)
+  const messageDataTable = await accountModel.getArchivedMessages(accountId)
+  const table = await utilities.buildMessageTable(messageDataTable.rows)
+  res.render("account/archive", {
+    title: accountData.account_firstname + " " + accountData.account_lastname + " " + "inbox",
+    nav,
+    errors: null,
+    table,
+  })
+}
+
   /* ****************************************
 *  Process archive message
 * *****************************************/
@@ -448,5 +465,5 @@ async function deleteMessage(req, res){
 }
 }
 
-module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView, updateInfo, updateInfoPassword, buildInbox, buildMessage, newMessageView, sendNewMessage, replyMessage, markAsRead, archiveMessage, deleteMessage}
+module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView, updateInfo, updateInfoPassword, buildInbox, buildMessage, newMessageView, sendNewMessage, replyMessage, markAsRead, archiveMessage, deleteMessage, archiveMessageView}
 
