@@ -378,12 +378,11 @@ async function archiveMessageView(req, res) {
   const accountId = req.params.account_id
   const accountData = await accountModel.getAccountByAccountId(accountId)
   const messageDataTable = await accountModel.getArchivedMessages(accountId)
-  const table = await utilities.buildMessageTable(messageDataTable.rows)
   res.render("account/archive", {
     title: accountData.account_firstname + " " + accountData.account_lastname + " " + "inbox",
     nav,
-    errors: null,
-    table,
+    
+    errors: null
   })
 }
 
