@@ -241,8 +241,8 @@ async function buildMessage(req, res) {
 
   const messageId = req.params.message_id
   const message = await accountModel.getMessageViewByID(messageId)
-  console.log(message)
-  console.log(messageData)
+  // console.log(messageId)
+  // console.log(messageData)
   // console.log(messageData.rows[0].message_subject)
   
   res.render("account/messages", {
@@ -252,6 +252,7 @@ async function buildMessage(req, res) {
     message: message[0].message_body,
     created: message[0].message_created,
     errors:null,
+    message_id: messageId,
   })
 }
 
@@ -310,19 +311,142 @@ async function sendNewMessage (req, res) {
 * *****************************************/
 async function replyMessage(req, res) {
   let nav = await utilities.getNav()
+
   const accountId = res.locals.accountData.account_id
   const messageData = await accountModel.getMessagesById(accountId)
-  let div = await utilities.buildMessageToRead(messageData)
+
+  const messageId = req.params.message_id
+  const message = await accountModel.getMessageViewByID(messageId)
+  console.log(message)
+  console.log(messageData)
+  // console.log(messageData.rows[0].message_subject)
+  
   res.render("account/reply", {
     title: "Reply Message",
     nav,
-    div,
     errors:null,
-    account_id: accountId
   })
 }
 
+  /* ****************************************
+*  Process Mark as read
+* *****************************************/
+async function markAsRead(req, res) {
+  let nav = await utilities.getNav()
+  const message_id  = req.params.message_id
+  console.log(message_id)
+
+  const read = await accountModel.markMessageAsRead(message_id)
 
 
-module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView, updateInfo, updateInfoPassword, buildInbox, buildMessage, newMessageView, sendNewMessage, replyMessage}
+  const accountId = res.locals.accountData.account_id
+  const messageData = await accountModel.getMessagesById(accountId)
+
+
+  const message = await accountModel.getMessageViewByID(message_id)
+
+  if (read) {
+    req.flash("success", "Your message has been marked read")
+    res.render("account/messages", {
+      title: message[0].message_subject,
+      nav,
+      from: messageData.rows[0].account_firstname + " " + messageData.rows[0].account_lastname,
+      message: message[0].message_body,
+      created: message[0].message_created,
+      errors:null,
+      message_id
+    })
+} else {
+  req.flash("error", "Try again")
+  res.render("account/messages", {
+    title: message[0].message_subject,
+    nav,
+    from: messageData.rows[0].account_firstname + " " + messageData.rows[0].account_lastname,
+    message: message[0].message_body,
+    created: message[0].message_created,
+    errors:null,
+    message_id
+  })
+}
+}
+
+  /* ****************************************
+*  Process archive message
+* *****************************************/
+async function archiveMessage(req, res){
+  let nav = await utilities.getNav()
+  const message_id  = req.params.message_id
+
+  const archive = await accountModel.markMessageAsArchived(message_id)
+
+  const accountId = res.locals.accountData.account_id
+  const messageData = await accountModel.getMessagesById(accountId)
+
+
+  const message = await accountModel.getMessageViewByID(message_id)
+
+  if (archive) {
+    req.flash("success", "Your message has been archived")
+    res.render("account/messages", {
+      title: message[0].message_subject,
+      nav,
+      from: messageData.rows[0].account_firstname + " " + messageData.rows[0].account_lastname,
+      message: message[0].message_body,
+      created: message[0].message_created,
+      errors:null,
+      message_id
+    })
+} else {
+  req.flash("error", "Try again")
+  res.render("account/messages", {
+    title: message[0].message_subject,
+    nav,
+    from: messageData.rows[0].account_firstname + " " + messageData.rows[0].account_lastname,
+    message: message[0].message_body,
+    created: message[0].message_created,
+    errors:null,
+    message_id
+  })
+}
+}
+
+
+/******************************************
+*  Process delete message
+*******************************************/
+async function deleteMessage(req, res){
+  let nav = await utilities.getNav()
+  const message_id  = req.params.message_id
+  const dMess = await accountModel.deleteTheMessage(message_id)
+  
+  const accountId = res.locals.accountData.account_id
+  const accountData = await accountModel.getAccountByAccountId(accountId)
+
+
+  const message = await accountModel.getMessageViewByID(message_id)
+
+  const messageDataTable = await accountModel.getMessagesById(accountId)
+  const table = await utilities.buildMessageTable(messageDataTable.rows)
+  console.log(message)
+
+  if (dMess) {
+    req.flash("success", "Your message has been deleted")
+    res.render("account/inbox", {
+      title: accountData.account_firstname + " " + accountData.account_lastname + " " + "inbox",
+      nav,
+      errors: null,
+      table,
+    })
+} else {
+  req.flash("error", "Try again")
+  res.render("account/inbox", {
+    title: accountData.account_firstname + " " + accountData.account_lastname + " " + "inbox",
+    nav,
+    errors: null,
+    table,
+  })
+}
+}
+
+module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView, updateInfo, updateInfoPassword, buildInbox, buildMessage, newMessageView, sendNewMessage, replyMessage, markAsRead, archiveMessage, deleteMessage}
 

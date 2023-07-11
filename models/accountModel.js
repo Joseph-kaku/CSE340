@@ -105,7 +105,7 @@ async function updateInfoPassword(account_password, account_id) {
 * ********************************************************************************************************************************************************************************/
 
 /* ***************************
- * 
+ * with a join
  * ************************** */
 async function getMessagesById(account_id) {
   // try {
@@ -116,7 +116,7 @@ async function getMessagesById(account_id) {
   //   return new Error(error)
   // }
   try {
-    const sql = "SELECT a.account_firstname, account_lastname, message_id, message_from, message_to, message_created, message_read, message_body, message_subject FROM message m FULL JOIN account a ON m.message_from = a.account_id WHERE message_to = $1 AND message_read = false";
+    const sql = "SELECT a.account_firstname, account_lastname, message_id, message_from, message_to, message_created, message_read, message_body, message_subject FROM message m FULL JOIN account a ON m.message_from = a.account_id WHERE message_to = $1 AND message_archived = false";
     return await pool.query(sql, [account_id]);
   } catch (error) {
     console.error("getMessageByMessage_to error " + error);
@@ -124,7 +124,7 @@ async function getMessagesById(account_id) {
 }
 
 /* ***************************
- * 
+ * without a join
  * ************************** */
 async function getMessageViewByID(message_id) {
   try {
@@ -155,4 +155,45 @@ async function newMessageSent(message_to, message_from, message_subject, message
 }
 
 
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateInfo, updateInfoPassword, checkExistingFirstName, checkExistingLastName, getMessagesById, getMessageViewByID, getAccountNames, newMessageSent}
+/* **********************************
+ * Update to Mark as read in the DB
+ * **********************************/
+
+async function markMessageAsRead (message_id){
+  try{
+    const sql = "UPDATE public.message SET message_read = true WHERE message_id = $1"
+    return await pool.query(sql, [message_id])
+  } catch(error){
+    return new Error(error)
+  }
+}
+
+/* **********************************
+ * Update to archive list in the DB
+ * **********************************/
+async function markMessageAsArchived (message_id){
+  try{
+    const sql = "UPDATE public.message SET message_archived = true WHERE message_id = $1"
+    return await pool.query(sql, [message_id])
+  } catch(error){
+    return new Error(error)
+  }
+}
+
+/* **********************************
+ * Show archived messages in the DB
+ * **********************************/
+
+/* **********************************
+ * Delete messages in the DB
+ * **********************************/
+async function deleteTheMessage(message_id) {
+  try{
+    const sql = "DELETE FROM public.message WHERE message_id = $1"
+    return await pool.query(sql, [message_id])
+  } catch(error){
+    return new Error(error)
+  }
+}
+
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail, getAccountByAccountId, updateInfo, updateInfoPassword, checkExistingFirstName, checkExistingLastName, getMessagesById, getMessageViewByID, getAccountNames, newMessageSent, markMessageAsRead, markMessageAsArchived, deleteTheMessage}
