@@ -8,12 +8,13 @@
   <!-- flash messages if any will be displaced as a result of the following line of code -->
   <%- messages() %>
 
+  <%#- messageId %>
 
   <!-- Form for replying a message -->
-  <form action="/account/reply/:message_id" method="post">
+  <form action="/account/reply" method="post">
     <fieldset>
         <label for="message_from" id="accountNames">Reply To:</label> <br>
-        <input name="message_from" type="text" readonly value= "<%= locals.accountData.account_firstname %> <%= locals.accountData.account_lastname %>"> <br>
+        <input name="message_from" type="text" readonly value= "<%- firstname %> <%- lastname %>"> <br>
         <label for="message_subject">Subject:</label> <br>
         <input name="message_subject" id="subjectMessage" type="text" value= "RE: <%- message%> " readonly required> <br>
         <label for="message_body">Message:</label> <br>
@@ -21,7 +22,10 @@
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/////////Previous Message////////////&nbsp;&nbsp;&nbsp;&nbsp;<%- textBody %>
         </textarea> <br>
         <input type="submit" name="submit" value="Send Reply" id="sendButton"> <br>
-        <input type="hidden" name="message_from" <% if(locals.accountData.account_id) { %> value="<%= locals.accountData.account_id %>" <% } %> >
+        <input type="hidden" name="message_id"
+        <% if(messageId) { %>
+           value="<%= messageId %>"
+        <% } %> >
     </fieldset>
   </form>
 

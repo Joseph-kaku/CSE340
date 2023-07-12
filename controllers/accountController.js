@@ -318,12 +318,12 @@ async function replyMessage(req, res) {
 
   const accountId = res.locals.accountData.account_id
   const messageData = await accountModel.getMessagesById(accountId)
-
   const messageId = req.params.message_id
   const message = await accountModel.getMessageViewByID(messageId)
+  // console.log(messageId)
 
-  console.log(message)
-  console.log(messageData)
+  // console.log(message)
+  // console.log(messageData)
   // console.log(messageData.rows[0].message_subject)
   
   res.render("account/reply", {
@@ -332,6 +332,7 @@ async function replyMessage(req, res) {
     message: messageData.rows[0].message_subject,
     textBody: messageData.rows[0].message_body,
     errors:null,
+    messageId
   })
 }
 
@@ -345,29 +346,40 @@ async function replyTheMessage(req, res) {
     message_id, message_subject, message_body
     )
     console.log(message_id)
+
     if (updateMess) {
       let nav = await utilities.getNav()
-      const accountId = req.params.account_id
+      const accountId = res.locals.accountData.account_id
+      console.log(accountId)
       
-      const accountData = await accountModel.getAccountByAccountId(accountId)
-      const messageDataTable = await accountModel.getMessagesById(accountId)
+       const messageData = await accountModel.getMessagesById(accountId)
+       const messageDataTable = await accountModel.getMessagesById(accountId)
       const table = await utilities.buildMessageTable(messageDataTable.rows)
       req.flash("success", "Your reply was sent")
       res.render("account/inbox", {
-        title: accountData.account_firstname + " " + accountData.account_lastname + " " + "inbox",
+        title: messageData.rows[0].account_firstname+ " " + messageData.rows[0].account_lastname + " " + "inbox",
+        firstname:  messageData.rows[0].account_firstname,
+        lastname: messageData.rows[0].account_lastname,
         nav,
         errors: null,
         table,
-        message: message_id
       })
     } else {
+      let nav = await utilities.getNav()
+      const accountId = res.locals.accountData.account_id
+      console.log(accountId)
+      
+       const messageData = await accountModel.getMessagesById(accountId)
+       const messageDataTable = await accountModel.getMessagesById(accountId)
+      const table = await utilities.buildMessageTable(messageDataTable.rows)
       req.flash("error", "Your reply was not sent")
       res.render("account/inbox", {
-        title: accountData.account_firstname + " " + accountData.account_lastname + " " + "inbox",
+        title: messageData.rows[0].account_firstname+ " " + messageData.rows[0].account_lastname + " " + "inbox",
+        firstname:  messageData.rows[0].account_firstname,
+        lastname: messageData.rows[0].account_lastname,
         nav,
         errors: null,
         table,
-        message: message_id
       })
     }
 

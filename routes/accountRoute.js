@@ -72,7 +72,7 @@ utilities.handleErrors(accountController.sendNewMessage))
 router.get("/reply/:message_id", utilities.handleErrors(accountController.replyMessage))
 
 // Route for send reply message
-router.post("/reply/:message_id", utilities.handleErrors(accountController.replyTheMessage))
+router.post("/reply", utilities.handleErrors(accountController.replyTheMessage))
 
 // Route to mark as read
 router.post("/read/:message_id", utilities.handleErrors(accountController.markAsRead))
