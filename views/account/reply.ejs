@@ -14,7 +14,7 @@
   <form action="/account/reply" method="post">
     <fieldset>
         <label for="message_from" id="accountNames">Reply To:</label> <br>
-        <input name="message_from" type="text" readonly value= "<%- firstname %> <%- lastname %>"> <br>
+        <input name="message_from" type="text" readonly value= "<%- locals.accountData.account_firstname %> <%- locals.accountData.account_lastname %>"> <br>
         <label for="message_subject">Subject:</label> <br>
         <input name="message_subject" id="subjectMessage" type="text" value= "RE: <%- message%> " readonly required> <br>
         <label for="message_body">Message:</label> <br>

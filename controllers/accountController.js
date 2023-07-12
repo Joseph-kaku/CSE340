@@ -358,8 +358,8 @@ async function replyTheMessage(req, res) {
       req.flash("success", "Your reply was sent")
       res.render("account/inbox", {
         title: messageData.rows[0].account_firstname+ " " + messageData.rows[0].account_lastname + " " + "inbox",
-        firstname:  messageData.rows[0].account_firstname,
-        lastname: messageData.rows[0].account_lastname,
+        // firstname:  messageData.account_firstname,
+        // lastname: messageData.rows[0].account_lastname,
         nav,
         errors: null,
         table,
