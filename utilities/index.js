@@ -93,16 +93,6 @@ Util.buildInvView = async function(data){
 /* ************************
  * Constructs the drop down menu
  ************************** */
-// Util.getClass = async function(data) {
-// let dropmenu = '<select id="classificationList" name="classification_id" required>'
-// dropmenu += '<option value=""> Select A Classification </option>'
-// data.rows.forEach((row) => {
-//   dropmenu += `<option value="${row.classification_id}">${row.classification_name}</option>`
-// })
-// dropmenu += "</select>"
-// return dropmenu
-// }
-
 Util.getClass = async function(optionSelected){
   let data = await invModel.getClassifications()
   let select = "<select name='classification_id' id='classificationList'>"
@@ -201,10 +191,6 @@ Util.buildMessageTable = async function (item) {
 }
 
 /* ********************************************
-*  Build the table for archived messages
-* *********************************************/
-
-/* ********************************************
 *  Build the read message
 * *********************************************/
 // Util.buildMessageToRead = async function (item) {
@@ -219,7 +205,6 @@ Util.buildMessageTable = async function (item) {
 /* **********************************************
  * Constructs a drop down menu for selecting Names
  ************************************************/
-
 Util.getName = async function(account_id = null) {
   let data = await accModel.getAccountNames()
   let select = "<select name='message_to' id='accountNames'>"

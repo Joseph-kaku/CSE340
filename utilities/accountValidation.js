@@ -241,6 +241,11 @@ validate.checkUpdateInfo = async (req, res, next) => {
  * ***************************** */
 validate.createMessageRules = () => {
   return [
+    body("message_to")
+    .trim()
+    .isAlpha()
+    .withMessage("Select a recipient"),
+
     body("message_subject")
       .trim()
       .isLength({min:5})
@@ -258,7 +263,7 @@ validate.createMessageRules = () => {
  * Create message validation rules
  * ***************************** */
 validate.checkCreateMessage = async (req, res, next) => {
-  const {message_subject, message_body} = req.body
+  const {message_to, message_subject, message_body} = req.body
   let errors = []
   errors = validationResult(req)
   if (!errors.isEmpty()) {
@@ -270,6 +275,7 @@ validate.checkCreateMessage = async (req, res, next) => {
       title: "New Message",
       nav,
       select,
+      message_to,
       message_subject,
       message_body,
     })
