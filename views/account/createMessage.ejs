@@ -26,10 +26,12 @@
     <!-- droplist in -->
     <%- select %> <br>
     <label for="message_subject">Subject:</label> <br>
-    <input name="message_subject" id="subjectMessage" type="text" required> <br>
+    <input name="message_subject" id="subjectMessage" type="text" value="<%= locals.message_subject %>" required> <br>
     <label for="message_body">Message:</label> <br>
-    <textarea name="message_body" id="subjectBody" cols="30" rows="10" required></textarea> <br>
+    <textarea name="message_body" id="subjectBody" cols="30" rows="10" required><%= locals.message_body %></textarea> <br>
     <input type="submit" name="submit" value="Send" id="sendButton">
     <input type="hidden" name="message_from" <% if(locals.accountData.account_id) { %> value="<%= locals.accountData.account_id %>" <% } %> >
   </fieldset>
 </form>
+
+<p><a href="/account">Return To Inbox</a></p>

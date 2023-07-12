@@ -111,10 +111,14 @@ async function accountLogin(req, res) {
  * ************************************ */
  async function buildAccountManagement (req, res, next) {
   let nav = await utilities.getNav()
+  let accountId = res.locals.accountData.account_id
+  let unread = await accountModel.unreadMessages(accountId)
+  console.log(unread)
   req.flash("success", "You're logged in")
   res.render("account/management", {
     title: "Account Management",
     nav,
+    unread: unread.rows[0].count,
     errors: null,
   })
 }
@@ -317,6 +321,7 @@ async function replyMessage(req, res) {
 
   const messageId = req.params.message_id
   const message = await accountModel.getMessageViewByID(messageId)
+
   console.log(message)
   console.log(messageData)
   // console.log(messageData.rows[0].message_subject)
@@ -324,10 +329,48 @@ async function replyMessage(req, res) {
   res.render("account/reply", {
     title: "Reply Message",
     nav,
+    message: messageData.rows[0].message_subject,
+    textBody: messageData.rows[0].message_body,
     errors:null,
   })
 }
 
+  /* ****************************************
+*  Process reply message
+* *****************************************/
+async function replyTheMessage(req, res) {
+  let nav = await utilities.getNav()
+  const accountId = req.params.account_id
+  const accountData = await accountModel.getAccountByAccountId(accountId)
+  const messageDataTable = await accountModel.getMessagesById(accountId)
+  const table = await utilities.buildMessageTable(messageDataTable.rows)
+console.log(messageDataTable)
+  const {message_id, message_body} = req.body
+
+  const updateMess = await accountModel.replyMessageReceived(
+    message_id, message_body
+  )
+    if (updateMess) {
+      req.flash("success", "Your reply was sent")
+      res.render("account/inbox", {
+        title: accountData.account_firstname + " " + accountData.account_lastname + " " + "inbox",
+        nav,
+        errors: null,
+        table,
+        message_id
+      })
+    } else {
+      req.flash("error", "Your reply was not sent")
+      res.render("account/inbox", {
+        title: accountData.account_firstname + " " + accountData.account_lastname + " " + "inbox",
+        nav,
+        errors: null,
+        table,
+        message_id
+      })
+    }
+
+}
   /* ****************************************
 *  Process Mark as read
 * *****************************************/
@@ -375,14 +418,16 @@ async function markAsRead(req, res) {
 *******************************************/
 async function archiveMessageView(req, res) {
   let nav = await utilities.getNav()
-  const accountId = req.params.account_id
-  const accountData = await accountModel.getAccountByAccountId(accountId)
+  const accountId = res.locals.accountData.account_id
+  // const accountData = await accountModel.getAccountByAccountId(accountId)
   const messageDataTable = await accountModel.getArchivedMessages(accountId)
+  console.log(messageDataTable)
+  const table = await utilities.buildMessageTable(messageDataTable)
   res.render("account/archive", {
-    title: accountData.account_firstname + " " + accountData.account_lastname + " " + "inbox",
+    title: messageDataTable[0].account_firstname + " " + messageDataTable[0].account_lastname +"'s archive",
     nav,
-    
-    errors: null
+    errors: null,
+    table
   })
 }
 
@@ -464,5 +509,5 @@ async function deleteMessage(req, res){
 }
 }
 
-module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView, updateInfo, updateInfoPassword, buildInbox, buildMessage, newMessageView, sendNewMessage, replyMessage, markAsRead, archiveMessage, deleteMessage, archiveMessageView}
+module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildAccountManagement, buildUpdateView, updateInfo, updateInfoPassword, buildInbox, buildMessage, newMessageView, sendNewMessage, replyMessage, markAsRead, archiveMessage, deleteMessage, archiveMessageView, replyTheMessage}
 

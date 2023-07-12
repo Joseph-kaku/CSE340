@@ -10,16 +10,20 @@
 
 
   <!-- Form for replying a message -->
-  <form action="/account/messages/reply" method="post">
+  <form action="/account/reply/:message_id" method="post">
     <fieldset>
         <p>ALL FIELDS ARE REQUIRED</p>
-        <label for="message_from" id="accountNames">To:</label> <br>
-        <input name="message_from" type="text" value= "<%= locals.accountData.account_firstname %><%= locals.accountData.account_lastname %>">
+        <label for="message_from" id="accountNames">Reply To:</label> <br>
+        <input name="message_from" type="text" readonly value= "<%= locals.accountData.account_firstname %> <%= locals.accountData.account_lastname %>"> <br>
         <label for="message_subject">Subject:</label> <br>
-        <input name="message_subject" id="subjectMessage" type="text" value="<%= locals.messageData.message_subject %>" required> <br>
+        <input name="message_subject" id="subjectMessage" type="text" value= "RE: <%- message%> " readonly required> <br>
         <label for="message_body">Message:</label> <br>
-        <textarea name="message_body" id="subjectBody" cols="30" rows="10" value="//////Previous Message///// <%= locals.messageData.message_body %>" required></textarea> <br>
-        <input type="submit" name="submit" value="Send" id="sendButton">
-    <input type="hidden" name="message_from" <% if(locals.accountData.account_id) { %> value="<%= locals.accountData.account_id %>" <% } %> >
+        <textarea name="message_body" id="subjectBody" cols="30" rows="10"  required>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/////////Previous Message////////////&nbsp;&nbsp;&nbsp;&nbsp;<%- textBody %>
+        </textarea> <br>
+        <input type="submit" name="submit" value="Send Reply" id="sendButton"> <br>
+        <input type="hidden" name="message_from" <% if(locals.accountData.account_id) { %> value="<%= locals.accountData.account_id %>" <% } %> >
     </fieldset>
   </form>
+
+  <p><a href="/account">Return To Inbox</a></p>

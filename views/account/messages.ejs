@@ -24,11 +24,11 @@
 <div id="links">
 <p><a href="/account">Return To Inbox</a></p>
 
-<form action="/account/reply/:message_id" >
-  <input type="submit" value="Reply">
+<form action="/account/reply/<%- message_id %>" >
+  <input name="message_id" type="submit" value="Reply">
 </form>
 
-<form action="/account/read/<%- message_id %>" method="post" >
+<form action="/account/read/<%- message_id %>" method="get" >
   <input name="message_id" type="submit" value="Mark as Read">
 </form>
 

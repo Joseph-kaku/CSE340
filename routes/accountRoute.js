@@ -63,19 +63,21 @@ router.get("/messages/:message_id", utilities.handleErrors(accountController.bui
 router.get("/createMessage", utilities.handleErrors(accountController.newMessageView))
 
 // Route to send a new message
-router.post("/createMessage", 
+router.post("/createMessage",
+regValidate.createMessageRules(), 
+regValidate.checkCreateMessage,
 utilities.handleErrors(accountController.sendNewMessage))
 
 // Route for reply message view
 router.get("/reply/:message_id", utilities.handleErrors(accountController.replyMessage))
 
 // Route for send reply message
-router.post("/reply", utilities.handleErrors() )
+router.post("/reply/:message_id", utilities.handleErrors(accountController.replyTheMessage))
 
 // Route to mark as read
 router.post("/read/:message_id", utilities.handleErrors(accountController.markAsRead))
 
-// Route to archived message view
+// Route for archived message view
 router.get("/archive", utilities.handleErrors(accountController.archiveMessageView))
 
 // Route to archive message
