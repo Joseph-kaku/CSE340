@@ -345,10 +345,10 @@ async function replyTheMessage(req, res) {
   const messageDataTable = await accountModel.getMessagesById(accountId)
   const table = await utilities.buildMessageTable(messageDataTable.rows)
 console.log(messageDataTable)
-  const {message_id, message_body} = req.body
+  const {message_id, message_subject, message_body} = req.body
 
   const updateMess = await accountModel.replyMessageReceived(
-    message_id, message_body
+    message_id, message_subject, message_body
   )
     if (updateMess) {
       req.flash("success", "Your reply was sent")

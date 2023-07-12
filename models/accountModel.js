@@ -220,10 +220,10 @@ async function unreadMessages(message_to) {
 /* **********************************
  * Update message (reply)
  * **********************************/
-async function replyMessageReceived (message_id, message_body) {
+async function replyMessageReceived (message_id, message_subject, message_body) {
   try {
-    const sql = "UPDATE public.message SET message_body = $2 WHERE message_id = $1 ";
-    return await pool.query(sql, [message_id, message_body])
+    const sql = "UPDATE public.message SET message-subject = $2 ,message_body = $3 WHERE message_id = $1 ";
+    return await pool.query(sql, [message_id, message_subject, message_body])
   } catch (error) {
     return error.message;
   }

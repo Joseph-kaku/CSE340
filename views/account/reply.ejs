@@ -12,7 +12,6 @@
   <!-- Form for replying a message -->
   <form action="/account/reply/:message_id" method="post">
     <fieldset>
-        <p>ALL FIELDS ARE REQUIRED</p>
         <label for="message_from" id="accountNames">Reply To:</label> <br>
         <input name="message_from" type="text" readonly value= "<%= locals.accountData.account_firstname %> <%= locals.accountData.account_lastname %>"> <br>
         <label for="message_subject">Subject:</label> <br>
