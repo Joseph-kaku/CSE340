@@ -339,25 +339,26 @@ async function replyMessage(req, res) {
 *  Process reply message
 * *****************************************/
 async function replyTheMessage(req, res) {
-  let nav = await utilities.getNav()
-  const accountId = req.params.account_id
-  const accountData = await accountModel.getAccountByAccountId(accountId)
-  const messageDataTable = await accountModel.getMessagesById(accountId)
-  const table = await utilities.buildMessageTable(messageDataTable.rows)
-console.log(messageDataTable)
-  const {message_id, message_subject, message_body} = req.body
+  const { message_id, message_subject, message_body} = req.body
 
   const updateMess = await accountModel.replyMessageReceived(
     message_id, message_subject, message_body
-  )
+    )
+    console.log(message_id)
     if (updateMess) {
+      let nav = await utilities.getNav()
+      const accountId = req.params.account_id
+      
+      const accountData = await accountModel.getAccountByAccountId(accountId)
+      const messageDataTable = await accountModel.getMessagesById(accountId)
+      const table = await utilities.buildMessageTable(messageDataTable.rows)
       req.flash("success", "Your reply was sent")
       res.render("account/inbox", {
         title: accountData.account_firstname + " " + accountData.account_lastname + " " + "inbox",
         nav,
         errors: null,
         table,
-        message_id
+        message: message_id
       })
     } else {
       req.flash("error", "Your reply was not sent")
@@ -366,7 +367,7 @@ console.log(messageDataTable)
         nav,
         errors: null,
         table,
-        message_id
+        message: message_id
       })
     }
 
