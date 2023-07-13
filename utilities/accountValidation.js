@@ -247,12 +247,12 @@ validate.createMessageRules = () => {
 
     body("message_subject")
       .trim()
-      .isLength({min:5})
+      .isLength({min:1})
       .withMessage("Please provide a valid subject"),
 
     body("message_body")
       .trim()
-      .isLength({min:5})
+      .isLength({min:1})
       .withMessage("Please provide a message to send")
   ]
 }
