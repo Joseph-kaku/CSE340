@@ -64,8 +64,8 @@ router.get("/createMessage", utilities.handleErrors(accountController.newMessage
 
 // Route to send a new message
 router.post("/createMessage",
-regValidate.createMessageRules(), 
-regValidate.checkCreateMessage,
+// regValidate.createMessageRules(), 
+// regValidate.checkCreateMessage,
 utilities.handleErrors(accountController.sendNewMessage))
 
 // Route for reply message view

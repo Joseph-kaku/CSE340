@@ -112,8 +112,9 @@ async function accountLogin(req, res) {
  async function buildAccountManagement (req, res, next) {
   let nav = await utilities.getNav()
   let accountId = res.locals.accountData.account_id
+  // let accountId = req.params.account_id
   let unread = await accountModel.unreadMessages(accountId)
-  console.log(unread)
+  
   req.flash("success", "You're logged in")
   res.render("account/management", {
     title: "Account Management",
@@ -225,6 +226,7 @@ async function buildInbox(req, res) {
   const accountId = req.params.account_id
   const accountData = await accountModel.getAccountByAccountId(accountId)
   const messageDataTable = await accountModel.getMessagesById(accountId)
+
   console.log(messageDataTable)
   const table = await utilities.buildMessageTable(messageDataTable.rows)
   res.render("account/inbox", {
@@ -286,20 +288,23 @@ async function sendNewMessage (req, res) {
   console.log(result)
   if (result) {
     let nav = await utilities.getNav()
-    let select = await utilities.getName()
-    const accountId = req.params.account_id
+   
+    const accountId = res.locals.accountData.account_id
+    let unread = await accountModel.unreadMessages(accountId)
+    console.log(accountId, unread.rows)
     // const accountData = await accountModel.getAccountByAccountId(accountId)
     const messageDataTable = await accountModel.getMessagesById(accountId)
-    const table = await utilities.buildMessageTable(messageDataTable.rows)
+   
     req.flash("success", "Your message has been sent")
     res.status(201).render("account/management", {
       title: "Account Management",
       nav,
       errors: null,
-      select,
-      table
+      unread: unread.rows[0].count
     }) 
   } else {
+    let select = await utilities.getName()
+    const table = await utilities.buildMessageTable(messageDataTable.rows)
     req.flash ("error", "Sorry. Message was not sent. Try again")
     res.status(501).render("account/createMessage", {
       title: "New message",
