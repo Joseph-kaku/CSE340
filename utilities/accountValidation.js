@@ -263,21 +263,23 @@ validate.createMessageRules = () => {
  * Create message validation rules
  * ***************************** */
 validate.checkCreateMessage = async (req, res, next) => {
-  const {message_to, message_subject, message_body} = req.body
+  // const {message_to, message_subject, message_body} = req.body
   let errors = []
   errors = validationResult(req)
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav()
-    const names = await accountModel.getAccountNames()
-    let select = await utilities.getName(names)
-    res.render("account/createMessage", {
-      errors,
-      title: "New Message",
+    let select = await utilities.getName()
+    const accountId = res.locals.accountData.account_id
+    const messageData = await accountModel.getMessagesById(accountId)
+    console.log(messageData)
+    const table = await utilities.buildMessageTable(messageData.rows)
+    req.flash("success", "Your message has been sent")
+    res.render("account/inbox", {
+      title: messageData.rows[0].account_firstname + " " + messageData.rows[0].account_lastname + " " + "inbox",
       nav,
+      errors: null,
       select,
-      message_to,
-      message_subject,
-      message_body,
+      table,
     })
     return
   }

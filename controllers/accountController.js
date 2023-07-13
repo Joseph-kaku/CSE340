@@ -225,6 +225,7 @@ async function buildInbox(req, res) {
   const accountId = req.params.account_id
   const accountData = await accountModel.getAccountByAccountId(accountId)
   const messageDataTable = await accountModel.getMessagesById(accountId)
+  console.log(messageDataTable)
   const table = await utilities.buildMessageTable(messageDataTable.rows)
   res.render("account/inbox", {
     title: accountData.account_firstname + " " + accountData.account_lastname + " " + "inbox",
@@ -246,7 +247,7 @@ async function buildMessage(req, res) {
   const messageId = req.params.message_id
   const message = await accountModel.getMessageViewByID(messageId)
   // console.log(messageId)
-  // console.log(messageData)
+  // console.log(message)
   // console.log(messageData.rows[0].message_subject)
   
   res.render("account/messages", {
