@@ -143,7 +143,7 @@ async function getAccountNames(){
 }
 
 /* ***************************
- *  Insert new message into DB
+ *  Insert new message 
  * ****************************/
 async function newMessageSent(message_to, message_from, message_subject, message_body) {
   try {
@@ -156,7 +156,7 @@ async function newMessageSent(message_to, message_from, message_subject, message
 
 
 /* **********************************
- * Update to Mark as read in the DB
+ * Update to Mark as read 
  * **********************************/
 
 async function markMessageAsRead (message_id){
@@ -181,7 +181,7 @@ async function markMessageAsArchived (message_id){
 }
 
 /* **********************************
- * Show archived messages in the DB
+ * Show archived messages 
  * **********************************/
 async function getArchivedMessages(account_id) {
   try {
@@ -193,7 +193,7 @@ async function getArchivedMessages(account_id) {
 }
 
 /* **********************************
- * Delete messages in the DB
+ * Delete messages 
  * **********************************/
 async function deleteTheMessage(message_id) {
   try{
